@@ -19,11 +19,11 @@ class Home(props: HomeProps) : RComponent<HomeProps, HomeState>(props) {
             attrs {
                 id = "home"
                 // https://pixabay.com/photos/network-social-abstract-hands-4109223/
-                setProp("data-background","/img/gallery/network-4109223_1280.jpg")
+                setProp("data-background","img/gallery/network-4109223_1280.jpg")
                 setProp("data-overlay","black; .6")
             }
             div("align-self-end pb-10 fullwidth text-center text-light"){
-                img(src="/img/icon.svg", classes = "page-title-icon"){}
+                img(src="img/icon.svg", classes = "page-title-icon"){}
                 h2("page-title-alt"){
                     +"Sentinel Web Technologies"
                 }

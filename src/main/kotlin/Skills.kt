@@ -14,7 +14,7 @@ class Skills(props: SkillsProps) : RComponent<SkillsProps, RState>(props) {
             attrs {
                 id = "skills"
                 // https://pixabay.com/photos/archer-archery-sunset-arrow-bow-2345211/
-                setProp("data-background", "/img/gallery/archer-2345211_1280.jpg")
+                setProp("data-background", "img/gallery/archer-2345211_1280.jpg")
                 setProp("data-overlay", "black; .6")
             }
             div("container text-light py-10") {
