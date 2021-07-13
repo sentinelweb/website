@@ -56,21 +56,11 @@ kotlin {
     }
 }
 
-//tasks {
-//    val processResources by getting(Copy::class) {
-//        doLast {
-//            buildDir.resolve("js/packages/website/kotlin-dce-dev/secrets.json")
-//                .writeText("""{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }""")
-//        }
-//    }
-//}
-
-
-//buildDir.resolve("js/packages/website/kotlin-dce/secrets.json")
-//    .writeText("""{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }""")
-
-//            buildDir.resolve("processedResources/js/main/secrets.json")
-//                .writeText("""{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }""")
-
-//            buildDir.resolve("processedResources/js/main/secrets.js")
-//                .writeText("""val SWEBSITE_MAPS_API_KEY = "${project.properties["SWEBSITE_MAPS_API_KEY"]}" """)
+tasks {
+    val processResources by getting(Copy::class) {
+        doLast {
+            buildDir.resolve("js/packages/website/kotlin-dce-dev/secrets.json")
+                .writeText("""{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }""")
+        }
+    }
+}
