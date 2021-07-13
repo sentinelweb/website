@@ -34,7 +34,6 @@ class Ofices(props: OficesProps) : RComponent<OficesProps, RState>(props) {
                 }
                 div("row mt-3") {
                     div("col-lg-12") {
-
                         h5("p-3") { +"French Office" }
                         div("google-map map-column") {
                             attrs {

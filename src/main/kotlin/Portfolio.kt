@@ -1,3 +1,4 @@
+import kotlinx.html.P
 import kotlinx.html.id
 import kotlinx.html.title
 import react.*
@@ -15,26 +16,11 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
             div("container py-10") {
                 p("text-links small uppercase opacity-09 mb-6") {
                     attrs { id = "folioFilter" }
-                    a(href = "#") {
-                        attrs { setProp("data-filter", "*") }
-                        +"All"
-                    }
-                    a(href = "#") {
-                        attrs { setProp("data-filter", ".mobile") }
-                        +"Mobile"
-                    }
-                    a(href = "#") {
-                        attrs { setProp("data-filter", ".web") }
-                        +"Web"
-                    }
-                    a(href = "#") {
-                        attrs { setProp("data-filter", ".external") }
-                        +"External"
-                    }
-                    a(href = "#") {
-                        attrs { setProp("data-filter", ".internal") }
-                        +"Project"
-                    }
+                    filterItem("*", "All")
+                    filterItem(".mobile","Mobile")
+                    filterItem(".web","Web")
+                    filterItem(".external","External")
+                    filterItem(".internal","Project")
                 }
                 div("grid lightbox") {
                     attrs {
@@ -228,6 +214,13 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
 
                 }
             }
+        }
+    }
+
+    private fun RDOMBuilder<P>.filterItem(target: String, text: String) {
+        a(href = "#") {
+            attrs { setProp("data-filter", target) }
+            +text
         }
     }
 }

@@ -1,3 +1,4 @@
+import kotlinx.html.DIV
 import kotlinx.html.id
 import react.*
 import react.dom.*
@@ -11,39 +12,30 @@ class Clients(props: ClientsProps) : RComponent<ClientsProps, RState>(props) {
     override fun RBuilder.render() {
         section("section-borders") {
             attrs {
-                id="clients"
+                id = "clients"
                 setProp("data-background", "#ffffff")
             }
             div("container text-center py-7") {
                 div("row clients") {
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/trainline-logo.png", classes = "clients-item") {}
-                    }
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/depop-logo.png", classes = "clients-item") {}
-                    }
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/waracle-logo.png", classes = "clients-item") {}
-                    }
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/jlc-logo.svg", classes = "clients-item") {}
-                    }
+                    client("/img/portfolio/trainline-logo.png")
+                    client("/img/portfolio/depop-logo.png")
+                    client("/img/portfolio/waracle-logo.png")
+                    client("/img/portfolio/jlc-logo.svg")
                 }
                 div("row clients") {
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/pwc-logo.jpg", classes = "clients-item") {}
-                    }
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/deloitte-logo.png", classes = "clients-item") {}
-                    }
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/mgm-logo.svg", classes = "clients-item") {}
-                    }
-                    span("col-6 col-md-4 col-lg py-4") {
-                        img(src = "/img/portfolio/capita-logo.png", classes = "clients-item") {}
-                    }
+                    client("/img/portfolio/pwc-logo.jpg")
+                    client("/img/portfolio/deloitte-logo.png")
+                    client("/img/portfolio/mgm-logo.svg")
+                    client("/img/portfolio/capita-logo.png")
                 }
             }
+        }
+
+    }
+
+    private fun RDOMBuilder<DIV>.client(url: String) {
+        span("col-6 col-md-4 col-lg py-4") {
+            img(src = url, classes = "clients-item") {}
         }
     }
 
@@ -54,28 +46,3 @@ fun RBuilder.clients(handler: ClientsProps.() -> Unit): ReactElement {
         this.attrs(handler)
     }
 }
-
-//<section data-background="#f7f7f7" class="section-borders">
-//<div class="container text-center py-6">
-//<div class="row">
-//<div class="col-6 col-md-4 col-lg py-4">
-//<img src="http://placehold.it/200x150" class="w-50" alt="">
-//</div>
-//<div class="col-6 col-md-4 col-lg py-4">
-//<img src="http://placehold.it/200x150" class="w-50" alt="">
-//</div>
-//<div class="col-6 col-md-4 col-lg py-4">
-//<img src="http://placehold.it/200x150" class="w-50" alt="">
-//</div>
-//<div class="col-6 col-md-4 col-lg py-4">
-//<img src="http://placehold.it/200x150" class="w-50" alt="">
-//</div>
-//<div class="col-6 col-md-4 col-lg py-4">
-//<img src="http://placehold.it/200x150" class="w-50" alt="">
-//</div>
-//<div class="col-6 col-md-4 col-lg py-4">
-//<img src="http://placehold.it/200x150" class="w-50" alt="">
-//</div>
-//</div>
-//</div>
-//</section>
