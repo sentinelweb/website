@@ -30,7 +30,7 @@ class Skills(props: SkillsProps) : RComponent<SkillsProps, RState>(props) {
                         hr("mb-3") { attrs { setProp("data-background", "#444") } }
                         skillGroup {
                             title = "Devops"
-                            list = listOf("Gradle", "Unit testing", "UI Testing", "Database", "Continuous Integration", "Deployment")
+                            list = listOf("Gradle", "Unit testing", "UI Testing", "Database", "Continuous Integration", "Deployment", "Firebase", "AWS")
                         }
                         hr("mb-3") { attrs { setProp("data-background", "#444") } }
                         skillGroup {

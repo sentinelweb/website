@@ -30,6 +30,8 @@ class OnePage(props: OnePageProps) : RComponent<OnePageProps, OnePageState>(prop
                 services {}
                 process {}
                 clients {}
+                contact{}
+                offices{}
             }
             footer {}
         }

@@ -9,7 +9,9 @@ external interface ServicesProps : RProps {
 class Services(props: ServicesProps) : RComponent<ServicesProps, RState>(props) {
     override fun RBuilder.render() {
         section("bg-lines py-sm-13 py-10 px-7") {
-            attrs { id="services" }
+            attrs {
+                id="services"
+            }
             div("container p-0"){
                 div("row no-gutters") {
                     div("col-md-6"){

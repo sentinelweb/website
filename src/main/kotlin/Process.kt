@@ -15,6 +15,7 @@ class Process(props: ProcessProps) : RComponent<ProcessProps, RState>(props) {
                 // https://pixabay.com/photos/archer-archery-sunset-arrow-bow-2345211/
                 setProp("data-background", "/img/gallery/board-2440249_1280.jpg")
                 setProp("data-overlay", "black; .7")
+
             }
             div("container p-0") {
                 h5("mb-8") { +"PROCESS" }

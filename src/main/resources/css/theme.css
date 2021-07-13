@@ -1954,8 +1954,7 @@ a.page-title-wrapper:hover .page-subtitle:after {
 	font-size: 50px;
 }
 .google-map.map-column.ready {
-	height: 100%;
-	min-height: 700px;
+	height: 350px;
 }
 @media (max-width: 991px) {
 	.user-email {
