@@ -28,6 +28,7 @@ class Home(props: HomeProps) : RComponent<HomeProps, HomeState>(props) {
 //                opacity = 0.8f
 //            }
             div("align-self-end pb-10 fullwidth text-center text-light"){
+                img(src="/img/icon.svg", classes = "page-title-icon"){}
                 h2("page-title-alt"){
                     +"Sentinel Web Technologies"
                 }

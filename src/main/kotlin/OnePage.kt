@@ -18,21 +18,23 @@ class OnePage(props: OnePageProps) : RComponent<OnePageProps, OnePageState>(prop
     }
 
     override fun RBuilder.render() {
-        header {}
-        main {
-            attrs { id = "main" }
-            home {}
-            about {}
-            portfolio {}
-            skills{}
-            services{}
-            process{}
-            clients{}
+        div(if(props.lightTheme) "light-navigation" else "") {
+            div{attrs{id="preloader"}}
+            header {}
+            main {
+                attrs { id = "main" }
+                home {}
+                about {}
+                portfolio {}
+                skills {}
+                services {}
+                process {}
+                clients {}
+            }
+            footer {}
         }
-        footer {}
     }
 }
-
 
 fun RBuilder.onePage(handler: OnePageProps.() -> Unit): ReactElement {
     return child(OnePage::class) {

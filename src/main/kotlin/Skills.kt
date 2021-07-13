@@ -25,17 +25,23 @@ class Skills(props: SkillsProps) : RComponent<SkillsProps, RState>(props) {
                     div("col-xl-6 col-lg-8") {
                         skillGroup {
                             title = "Development"
-                            list = listOf("Kotlin Multi-platform", "Android", "iOS", "HTML / CSS / JS", "Node JS", "React")
+                            list = listOf("Kotlin Multi-Platform", "Android", "iOS", "HTML / CSS / JS", "Node JS", "React")
                         }
                         hr("mb-3") { attrs { setProp("data-background", "#444") } }
                         skillGroup {
                             title = "Devops"
-                            list = listOf("Gradle", "Unit testing", "UI testing", "Database", "Continuous Integration")
+                            list = listOf("Gradle", "Unit testing", "UI Testing", "Database", "Continuous Integration", "Deployment")
                         }
                         hr("mb-3") { attrs { setProp("data-background", "#444") } }
                         skillGroup {
                             title = "Design"
-                            list = listOf("UX/UI", "Photoshop", "Illustrator", "Prototyping", "User testing")
+                            list = listOf("User Experience","User Interface", "Photoshop", "Illustrator", "Prototyping", "User Testing")
+                        }
+                        hr("mb-3") { attrs { setProp("data-background", "#444") } }
+                        skillGroup {
+                            title = "Process"
+                            list = listOf("Agile", "Scrum", "Kanban", "Continuous Development", "XP/Pair Programming",
+                                "Feature Driven Developemnt","Behaviour Driven Developemnt","Test Driven Developemnt", "Continuous Delivery")
                         }
                     }
                 }

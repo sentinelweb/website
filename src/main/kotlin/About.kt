@@ -24,7 +24,7 @@ class About(props: AboutProps) : RComponent<AboutProps, AboutState>(props) {
             div("container py-8 py-sm-13") {
                 div("row justify-content-between") {
                     div("col-lg-5 text-lg-right") {
-                        h2("bold") {
+                        h2() {
                             +"We build cross-platform mobile and web experiences"
                         }
                     }

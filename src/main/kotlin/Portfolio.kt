@@ -38,15 +38,15 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                 }
                 div("grid lightbox") {
                     attrs {
-                        setProp("data-columns", "3")
+                        setProp("data-columns", "5")
                         setProp("data-gutter", "50")
-                        setProp("data-cell-ratio", "5/4")
+                        setProp("data-cell-ratio", "5/5")
                         setProp("data-filter", "#folioFilter")
                     }
                     portfolioItem {
                         categories = "mobile external"
                         title = "Trainline"
-                        large = true
+                        tall = true
                         wide = true
                         backgroundUrl = "/img/portfolio/trainline-app-logo.png"
                         detailUrl = "/img/portfolio/trainline-app-detail.png"
@@ -60,6 +60,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile web external"
                         title = "Depop"
+                        tall = true
+                        wide = true
                         backgroundUrl = "/img/portfolio/depop-app-logo.png"
                         description = ""
                         links = listOf(
@@ -71,6 +73,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile external"
                         title = "Waracle"
+                        wide = true
                         backgroundUrl = "/img/portfolio/waracle-logo.png"
                         description = ""
                         links = listOf(
@@ -82,6 +85,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "web external"
                         title = "PWC"
+                        wide = true
                         backgroundUrl = "/img/portfolio/pwc-logo.jpg"
                         description = "eGFS System"
                         links = listOf(
@@ -92,6 +96,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "web external"
                         title = "Deloitte"
+                        wide = true
                         backgroundUrl = "/img/portfolio/deloitte-logo.png"
                         description = "Sapphire System"
                         links = listOf(
@@ -125,6 +130,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "web external"
                         title = "Jaeger Le Coultre"
+                        wide = true
                         backgroundUrl = "/img/portfolio/jlc-logo.svg"
                         detailUrl = "/img/portfolio/jlc-logo-watch-detail.webp"
                         description = "Jaeger Le Coultre watches website"
@@ -136,6 +142,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "web external"
                         title = "Capita"
+                        wide = true
                         backgroundUrl = "/img/portfolio/capita-logo.png"
                         description = "Capita HR system"
                         links = listOf(
@@ -171,7 +178,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         categories = "mobile web internal"
                         title = "Cuer"
                         backgroundUrl = "/img/portfolio/cuer-app-logo.svg"
-                        detailUrl = "/img/portfolio/cuer-app-detail.jpeg"
+                        detailUrl = "/img/portfolio/cuer-app-detail.png"
                         description = "Better playlists for your well-being"
                         links = listOf(
                             "Website" to "https://cuer.app"
@@ -180,7 +187,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
 
                     portfolioItem {
                         categories = "mobile internal"
-                        title = "SuperCards"
+                        title = "SuprCards"
                         backgroundUrl = "/img/portfolio/suprcards-app-logo.png"
                         description = "Vector drawing application"
                         links = listOf(
@@ -233,7 +240,7 @@ fun RBuilder.portfolio(handler: PortfolioProps.() -> Unit): ReactElement {
 
 external interface PortfolioItemProps : RProps {
     var categories: String?
-    var large: Boolean
+    var tall: Boolean
     var wide: Boolean
     var backgroundUrl: String
     var detailUrl: String?
@@ -242,14 +249,14 @@ external interface PortfolioItemProps : RProps {
     var links: List<Pair<String, String>>
 }
 
-class PortfolioItem(props: PortfolioItemProps) : RComponent<PortfolioItemProps, RState>(props) {
+private class PortfolioItem(props: PortfolioItemProps) : RComponent<PortfolioItemProps, RState>(props) {
 
 
     override fun RBuilder.render() {
         figure(
             "portfolio-item "
                     + (if (props.wide) "wide " else "")
-                    + (if (props.large) "tall " else "")
+                    + (if (props.tall) "tall " else "")
                     + (props.categories ?: "")
         ) {
             attrs {
@@ -290,7 +297,7 @@ class PortfolioItem(props: PortfolioItemProps) : RComponent<PortfolioItemProps, 
 }
 
 
-fun RBuilder.portfolioItem(handler: PortfolioItemProps.() -> Unit): ReactElement {
+private fun RBuilder.portfolioItem(handler: PortfolioItemProps.() -> Unit): ReactElement {
     return child(PortfolioItem::class) {
         this.attrs(handler)
     }

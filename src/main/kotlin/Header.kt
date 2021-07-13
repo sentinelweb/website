@@ -26,8 +26,8 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
             a("index.html", classes = "logo") {
 //                img(alt = "logo", src = "img/logo-light.png", classes = "logo-light") {}
 //                img(alt = "logo", src = "img/logo-light.png", classes = "logo-dark") {}
-                img(alt = "logo", src = "img/logo.svg", classes = "logo-light") {}
-                img(alt = "logo", src = "img/logo.svg", classes = "logo-dark") {}
+                img(alt = "logo", src = "img/logo-dark.svg", classes = "logo-light") {}
+                img(alt = "logo", src = "img/logo-light.svg", classes = "logo-dark") {}
             }
             a("#", classes = "mob-menu") {
                 span {}
