@@ -23,7 +23,7 @@ class Ofices(props: OficesProps) : RComponent<OficesProps, RState>(props) {
                         h5("p-3") { +"UK Office" }
                         div("google-map map-column") {
                             attrs {
-                                setProp("data-api-key", "AIzaSyAI3FNELgcqghlfcqKUoLwofnqY5QS1IPg")
+                                setProp("data-api-key", "")
                                 setProp("data-latitude", "53.5891881")
                                 setProp("data-longitude", "-2.3204524")
                                 setProp("data-zoom", "7")
@@ -38,7 +38,7 @@ class Ofices(props: OficesProps) : RComponent<OficesProps, RState>(props) {
                         h5("p-3") { +"French Office" }
                         div("google-map map-column") {
                             attrs {
-                                setProp("data-api-key", "AIzaSyAI3FNELgcqghlfcqKUoLwofnqY5QS1IPg")
+                                setProp("data-api-key", "")
                                 setProp("data-latitude", "45.9318746")
                                 setProp("data-longitude", "6.859057")
                                 setProp("data-zoom", "9")
