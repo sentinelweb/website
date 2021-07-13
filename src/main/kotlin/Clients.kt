@@ -14,7 +14,7 @@ class Clients(props: ClientsProps) : RComponent<ClientsProps, RState>(props) {
                 id="clients"
                 setProp("data-background", "#ffffff")
             }
-            div("container text-center py-6") {
+            div("container text-center py-7") {
                 div("row clients") {
                     span("col-6 col-md-4 col-lg py-4") {
                         img(src = "/img/portfolio/trainline-logo.png", classes = "clients-item") {}
