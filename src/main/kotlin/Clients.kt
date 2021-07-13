@@ -17,16 +17,16 @@ class Clients(props: ClientsProps) : RComponent<ClientsProps, RState>(props) {
             }
             div("container text-center py-7") {
                 div("row clients") {
-                    client("/img/portfolio/trainline-logo.png")
-                    client("/img/portfolio/depop-logo.png")
-                    client("/img/portfolio/waracle-logo.png")
-                    client("/img/portfolio/jlc-logo.svg")
+                    client("img/portfolio/trainline-logo.png")
+                    client("img/portfolio/depop-logo.png")
+                    client("img/portfolio/waracle-logo.png")
+                    client("img/portfolio/jlc-logo.svg")
                 }
                 div("row clients") {
-                    client("/img/portfolio/pwc-logo.jpg")
-                    client("/img/portfolio/deloitte-logo.png")
-                    client("/img/portfolio/mgm-logo.svg")
-                    client("/img/portfolio/capita-logo.png")
+                    client("img/portfolio/pwc-logo.jpg")
+                    client("img/portfolio/deloitte-logo.png")
+                    client("img/portfolio/mgm-logo.svg")
+                    client("img/portfolio/capita-logo.png")
                 }
             }
         }
