@@ -7,6 +7,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.html.id
 import kotlinx.html.unsafe
+import org.w3c.dom.HTMLAnchorElement
+import org.w3c.dom.HTMLLinkElement
+import org.w3c.dom.asList
 import react.*
 import react.dom.*
 
@@ -63,7 +66,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
     private fun RBuilder.detail(item: data.BlogItem) {
         section("bg-light pb-6") {
             div("container py-8") {
-                div("col-lg-9") {
+                div("col-lg-12 blog-item") {
                     attrs {
                         unsafe {
                             + (state.contentHtml?:"Loading ...")
@@ -72,9 +75,10 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
                 }
             }
         }
-        if (state.contentHtml==null) {// on component did mount or whatevs
-            fetch(item)
-        }
+    }
+
+    override fun componentDidMount() {
+        fetch(state.item)
     }
 
     private fun fetch(item: data.BlogItem) {
@@ -84,6 +88,10 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
                 contentHtml = rx
             }
             hljs.highlightAll()
+            document.querySelectorAll(".blog-item a").asList().forEach {
+                console.log(it::class)
+                (it as HTMLAnchorElement).target = "_blank"
+            }
         }
     }
 

@@ -44,7 +44,7 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
                         menuItem("#process", "Process")
                         menuItem("#clients", "Clients")
                         menuItem("#contact", "Contact")
-                        menuItem("/blog.html", "Blog")
+                        menuItem(BLOG_PATH, "Blog")
 //                        menuItemNav(BLOG_PATH,"Blog")
                     }
                 }
@@ -61,9 +61,9 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
         }
     }
 
-    private fun RDOMBuilder<UL>.menuItem(link: String, title: String, active:Boolean = false) {
+    private fun RDOMBuilder<UL>.menuItem(link: String, title: String, active: Boolean = false) {
         li {
-            a(if(active)"active" else "") {
+            a(classes = if (active) "active" else "") {
                 attrs { href = link }
                 +title
             }

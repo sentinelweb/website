@@ -52,7 +52,6 @@ kotlin {
                 devServer = devServer?.copy(port = 3030)
             }
         }
-
     }
 }
 
