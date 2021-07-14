@@ -1,6 +1,12 @@
 import data.blogItems
 import kotlinx.browser.document
+import kotlinx.browser.window
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.await
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.html.id
+import kotlinx.html.unsafe
 import react.*
 import react.dom.*
 
@@ -10,7 +16,10 @@ external interface BlogItemProps : RProps {
     var index: Int?
 }
 
-data class BlogItemState(val item: data.BlogItem) : RState
+data class BlogItemState(
+    val item: data.BlogItem,
+    var contentHtml: String? = null//"Loading ..."
+) : RState
 
 class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(props) {
 
@@ -55,9 +64,26 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         section("bg-light pb-6") {
             div("container py-8") {
                 div("col-lg-9") {
-                    +"Article content"
+                    attrs {
+                        unsafe {
+                            + (state.contentHtml?:"Loading ...")
+                        }
+                    }
                 }
             }
+        }
+        if (state.contentHtml==null) {// on component did mount or whatevs
+            fetch(item)
+        }
+    }
+
+    private fun fetch(item: data.BlogItem) {
+        MainScope().launch {
+            val rx = fetchContent(item.contentUri)
+            setState {
+                contentHtml = rx
+            }
+            hljs.highlightAll()
         }
     }
 
@@ -68,6 +94,14 @@ fun RBuilder.blogItem(handler: BlogItemProps.() -> Unit): ReactElement {
     return child(BlogItem::class) {
         this.attrs(handler)
     }
+}
+
+suspend fun fetchContent(relative: String): String = coroutineScope {
+    window
+        .fetch(relative)
+        .await()
+        .text()
+        .await()
 }
 //
 //"""
