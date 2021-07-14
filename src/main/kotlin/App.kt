@@ -1,25 +1,37 @@
 import kotlinx.browser.window
 import org.w3c.dom.events.Event
+import org.w3c.dom.url.URLSearchParams
 import react.RBuilder
+import react.RProps
 import react.router.dom.browserRouter
 import react.router.dom.route
 import react.router.dom.switch
 
 const val BLOG_PATH = "/blog.html"
+const val BLOG_ITEM_PATH = "/blog_item.html"
 
+interface IndexProps : RProps {
+    var index: Int
+}
 fun RBuilder.app() =
     browserRouter {
         console.log("route")
         switch {
             route("/", exact = true) {
-                console.log("home")
                 onePage { lightTheme = true }
             }
             route(BLOG_PATH) {
-                console.log("blog")
+                console.log("blog:")
                 blog { lightTheme = true }
             }
-           // window.dispatchEvent( Event("load"))
+            route<IndexProps>(BLOG_ITEM_PATH) {props ->
+                val query = URLSearchParams(props.location.search);
+                console.log("item:"+query)
+                blogItem {
+                    lightTheme = true
+                    index = query.get("index")?.toInt()
+                }
+            }
         }
     }
 

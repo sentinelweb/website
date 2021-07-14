@@ -1,3 +1,4 @@
+import data.blogItems
 import kotlinx.browser.document
 import kotlinx.html.id
 import react.*
@@ -5,10 +6,10 @@ import react.dom.*
 
 external interface BlogProps : RProps {
     var lightTheme: Boolean // todo consolidate with onepage
-    val category: Category?
+    val category: data.Category?
 }
 
-data class BlogState(val category: Category?) : RState
+data class BlogState(val category: data.Category?) : RState
 
 class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
 
@@ -53,64 +54,35 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
                     setProp("data-gutter", "30")
                     setProp("data-columns", "3")
                 }
-                listOf(
-                    BlogItem("img/gallery/satellite-image-1030778_1280.jpg", "Code magic", "25 jan", catgories),
-                    BlogItem("img/gallery/network-4143317_1280.jpg", "Working together", "4 Apr", catgories),
-                    BlogItem("img/gallery/archer-2345211_1280.jpg", "Shooting straight", "7 Apr", catgories),
-                    BlogItem(
-                        "img/gallery/board-2440249_1280.jpg",
-                        "Getting the most out of your life", "15 May", catgories
-                    )
-                ).forEach {
-                    blogItem(it)
+                blogItems.forEachIndexed { i, item ->
+                    blogItem(item, i)
                 }
             }
         }
     }
 
-    private fun RBuilder.blogItem(item: BlogItem) {
+    private fun RBuilder.blogItem(item: data.BlogItem, index: Int) {
         article {
-            a(href = "#") {
+            val link = "blog_item.html?index=$index"
+            a(href = link) {
                 img(src = item.img) {}
             }
             div("details") {
                 h5("bold uppercase") {
-                    a(href = "#") { +item.title }
+                    a(href = link) { +item.title }
                 }
                 div("serif small") {
                     span { +item.date }
                     i { +" in " }
-                    item.categories.forEach {
-                        span("text-links uppercase") {
-                            a(href = it.link) { +it.title }
-                        }
-                        +" "
+                    span("text-links uppercase") {
+                        a(href = item.category.link) { +item.category.title }
                     }
-
                 }
             }
         }
     }
 
 }
-
-data class BlogItem(
-    val img: String,
-    val title: String,
-    val date: String,
-    val categories: List<Category>
-)
-
-data class Category(
-    val title: String,
-    val link: String
-)
-
-private val catgories = listOf(
-    Category("Code", "/blog/category/code"),
-    Category("Process", "/blog/category/process"),
-    Category("Devops", "/blog/category/devops"),
-)
 
 fun RBuilder.blog(handler: BlogProps.() -> Unit): ReactElement {
     return child(Blog::class) {
