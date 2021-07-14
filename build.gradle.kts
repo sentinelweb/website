@@ -51,6 +51,9 @@ kotlin {
             runTask {
                 devServer = devServer?.copy(port = 3030)
             }
+            dceTask {
+                keep("website.SWEBSITE_MAPS_API_KEY")
+            }
         }
     }
 }
@@ -66,7 +69,14 @@ kotlin {
 tasks {
     val processResources by getting(Copy::class) {
         doLast {
-            listOf("js/packages/website/kotlin-dce/secrets.json", "js/packages/website/kotlin-dce-dev/secrets.json")
+//            listOf("js/packages/website/kotlin-dce/secrets.json", "js/packages/website/kotlin-dce-dev/secrets.json")
+//                .map { buildDir.resolve(it) }
+//                .map {
+//                    it.writeText(
+//                        """{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }"""
+//                    )
+//                }
+            listOf("processedResources/js/main/secrets.json")
                 .map { buildDir.resolve(it) }
                 .map {
                     it.writeText(
