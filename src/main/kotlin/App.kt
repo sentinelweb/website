@@ -13,6 +13,7 @@ const val BLOG_ITEM_PATH = "/blog_item.html"
 interface IndexProps : RProps {
     var index: Int
 }
+
 fun RBuilder.app() =
     browserRouter {
         console.log("route")
@@ -24,13 +25,17 @@ fun RBuilder.app() =
                 console.log("blog:")
                 blog { lightTheme = true }
             }
-            route<IndexProps>(BLOG_ITEM_PATH) {props ->
+            route<IndexProps>(BLOG_ITEM_PATH) { props ->
                 val query = URLSearchParams(props.location.search);
-                console.log("item:"+query)
-                blogItem {
-                    lightTheme = true
-                    index = query.get("index")?.toInt()
-                }
+                console.log("item:" + query)
+                query.get("index")?.toInt()
+                    ?.let {
+                        blogItem {
+                            lightTheme = true
+                            index = it
+                        }
+                    }
+                    ?: run { blog { lightTheme = true } }
             }
         }
     }

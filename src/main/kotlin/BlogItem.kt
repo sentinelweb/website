@@ -16,7 +16,7 @@ import react.dom.*
 
 external interface BlogItemProps : RProps {
     var lightTheme: Boolean // todo consolidate with onepage
-    var index: Int?
+    var index: Int
 }
 
 data class BlogItemState(
@@ -39,6 +39,12 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
                 attrs { id = "main" }
                 hero(state.item)
                 detail(state.item)
+                blogNav{
+                    nextTarget=props.index.takeIf { it< blogItems.size-1 }?.let{"/blog_item.html?index=${+1}"}
+                    nextTitle="Next"
+                    prevTarget=props.index.takeIf { it>0 }?.let{"/blog_item.html?index=${it - 1}"}
+                    prevTitle="Prev"
+                }
             }
             footer {}
         }

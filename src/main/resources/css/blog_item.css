@@ -4,7 +4,8 @@
     /*font-family: 'Literata', sans-serif;*/
     font-family: 'Quicksand', sans-serif;
 }
-.blog-item h1,h2,h3,h4,h5,h6 {
+
+.blog-item h1,.blog-item h2,.blog-item h3,.blog-item h4,.blog-item h5,.blog-item h6 {
     margin-bottom:40px;
 }
 
