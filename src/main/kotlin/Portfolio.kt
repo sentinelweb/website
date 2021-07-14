@@ -34,8 +34,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         title = "Trainline"
                         tall = true
                         wide = true
-                        backgroundUrl = "/img/portfolio/trainline-app-logo.png"
-                        detailUrl = "/img/portfolio/trainline-app-detail.png"
+                        backgroundUrl = "img/portfolio/trainline-app-logo.png"
+                        detailUrl = "img/portfolio/trainline-app-detail.png"
                         description = "Trainline is the UK #1 travel app"
                         links = listOf(
                             "Website" to "https://www.thetrainline.com",
@@ -48,7 +48,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         title = "Depop"
                         tall = true
                         wide = true
-                        backgroundUrl = "/img/portfolio/depop-app-logo.png"
+                        backgroundUrl = "img/portfolio/depop-app-logo.png"
                         description = ""
                         links = listOf(
                             "Website" to "https://www.depop.com",
@@ -60,7 +60,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         categories = "mobile external"
                         title = "Waracle"
                         wide = true
-                        backgroundUrl = "/img/portfolio/waracle-logo.png"
+                        backgroundUrl = "img/portfolio/waracle-logo.png"
                         description = ""
                         links = listOf(
                             "Website" to "https://waracle.com/industries/digital-health/",
@@ -72,7 +72,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         categories = "web external"
                         title = "PWC"
                         wide = true
-                        backgroundUrl = "/img/portfolio/pwc-logo.jpg"
+                        backgroundUrl = "img/portfolio/pwc-logo.jpg"
                         description = "eGFS System"
                         links = listOf(
                             "Website" to "https://www.pwc.com/"
@@ -83,7 +83,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         categories = "web external"
                         title = "Deloitte"
                         wide = true
-                        backgroundUrl = "/img/portfolio/deloitte-logo.png"
+                        backgroundUrl = "img/portfolio/deloitte-logo.png"
                         description = "Sapphire System"
                         links = listOf(
                             "Website" to "https://www.deloitte.com/"
@@ -93,8 +93,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile external"
                         title = "Bighand"
-                        backgroundUrl = "/img/portfolio/bighand-app-logo.png"
-                        detailUrl = "/img/portfolio/bighand-app-detail.png"
+                        backgroundUrl = "img/portfolio/bighand-app-logo.png"
+                        detailUrl = "img/portfolio/bighand-app-detail.png"
                         description = "Voice-recording and task management"
                         links = listOf(
                             "Website" to "https://www.thetrainline.com",
@@ -105,8 +105,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile external"
                         title = "MGM Sports betting"
-                        backgroundUrl = "/img/portfolio/mgm-app-logo.png"
-                        detailUrl = "/img/portfolio/mgm-app-detail.webp"
+                        backgroundUrl = "img/portfolio/mgm-app-logo.png"
+                        detailUrl = "img/portfolio/mgm-app-detail.webp"
                         description = "Sports betting for the US market - not on play store"
                         links = listOf(
                             "Website" to "https://promo.nj.betmgm.com/en/promo/geolocator?orh=sports.betmgm.com"
@@ -117,8 +117,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         categories = "web external"
                         title = "Jaeger Le Coultre"
                         wide = true
-                        backgroundUrl = "/img/portfolio/jlc-logo.svg"
-                        detailUrl = "/img/portfolio/jlc-logo-watch-detail.webp"
+                        backgroundUrl = "img/portfolio/jlc-logo.svg"
+                        detailUrl = "img/portfolio/jlc-logo-watch-detail.webp"
                         description = "Jaeger Le Coultre watches website"
                         links = listOf(
                             "Website" to "https://www.jaeger-lecoultre.com/"
@@ -129,7 +129,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         categories = "web external"
                         title = "Capita"
                         wide = true
-                        backgroundUrl = "/img/portfolio/capita-logo.png"
+                        backgroundUrl = "img/portfolio/capita-logo.png"
                         description = "Capita HR system"
                         links = listOf(
                             "Website" to "https://www.capita.com/"
@@ -139,8 +139,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile external"
                         title = "Pickle Jobs"
-                        backgroundUrl = "/img/portfolio/pickle-app-logo.png"
-                        detailUrl = "/img/portfolio/pickle-app-detail.png"
+                        backgroundUrl = "img/portfolio/pickle-app-logo.png"
+                        detailUrl = "img/portfolio/pickle-app-detail.png"
                         description = "A social jobs application - we worked on app data networking layer"
                         links = listOf(
                             "Website" to "https://pickle.app/",
@@ -151,8 +151,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile internal"
                         title = "MyPod"
-                        backgroundUrl = "/img/portfolio/mypod-app-logo.png"
-                        detailUrl = "/img/portfolio/mypod-app-detail.png"
+                        backgroundUrl = "img/portfolio/mypod-app-logo.png"
+                        detailUrl = "img/portfolio/mypod-app-detail.png"
                         description = "Podcasting application"
                         links = listOf(
                             "App" to "https://play.google.com/store/apps/details?id=co.uk.sentinelweb.mypod.v2",
@@ -163,8 +163,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile web internal"
                         title = "Cuer"
-                        backgroundUrl = "/img/portfolio/cuer-app-logo.svg"
-                        detailUrl = "/img/portfolio/cuer-app-detail.png"
+                        backgroundUrl = "img/portfolio/cuer-app-logo.svg"
+                        detailUrl = "img/portfolio/cuer-app-detail.png"
                         description = "Better playlists for your well-being"
                         links = listOf(
                             "Website" to "https://cuer.app"
@@ -174,7 +174,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile internal"
                         title = "SuprCards"
-                        backgroundUrl = "/img/portfolio/suprcards-app-logo.png"
+                        backgroundUrl = "img/portfolio/suprcards-app-logo.png"
                         description = "Vector drawing application"
                         links = listOf(
                             "App" to "https://play.google.com/store/apps/details?id=co.uk.sentinelweb.cards"
@@ -184,7 +184,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile internal"
                         title = "PureFlow"
-                        backgroundUrl = "/img/portfolio/pureflow-app-logo.png"
+                        backgroundUrl = "img/portfolio/pureflow-app-logo.png"
                         description = "Art / Sound application"
                         links = listOf(
                             "App" to "https://play.google.com/store/apps/details?id=com.katyconnor.pureflow"
@@ -194,7 +194,7 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile internal"
                         title = "Silent mode timer"
-                        backgroundUrl = "/img/portfolio/silent-timer-app-logo.png"
+                        backgroundUrl = "img/portfolio/silent-timer-app-logo.png"
                         description = "Utilities"
                         links = listOf(
                             "App" to "https://play.google.com/store/apps/details?id=co.uk.sentinelweb.silenttimer"
@@ -204,8 +204,8 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                     portfolioItem {
                         categories = "mobile internal"
                         title = "ReMeme"
-                        backgroundUrl = "/img/portfolio/rememe-app-logo.png"
-                        detailUrl = "/img/portfolio/rememe-app-detail.png"
+                        backgroundUrl = "img/portfolio/rememe-app-logo.png"
+                        detailUrl = "img/portfolio/rememe-app-detail.png"
                         description = "Meme creation application"
                         links = listOf(
                             "App" to "https://play.google.com/store/apps/details?id=org.rememe"

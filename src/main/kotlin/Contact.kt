@@ -19,7 +19,7 @@ class Contact(props: ContactProps) : RComponent<ContactProps, ContactState>(prop
             attrs {
                 id = "contact"
                 //https://pixabay.com/illustrations/network-hug-embrace-man-media-4143317/
-                setProp("data-background", "/img/gallery/network-4143317_1280.jpg")
+                setProp("data-background", "img/gallery/network-4143317_1280.jpg")
                 setProp("data-overlay", "black; .7")
             }
             div("container text-light py-10") {
