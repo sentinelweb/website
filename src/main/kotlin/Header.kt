@@ -1,15 +1,15 @@
+import kotlinx.html.UL
 import kotlinx.html.id
 import react.*
 import react.dom.*
 import react.dom.header
+import react.router.dom.navLink
 
 external interface HeaderProps : RProps {
-    var x: Boolean
+    var isHome: Boolean
 }
 
 data class HeaderState(val unused: String) : RState
-
-external class ScrollListener
 
 class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
 
@@ -24,68 +24,56 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
             }
 
             a("index.html", classes = "logo") {
-//                img(alt = "logo", src = "img/logo-light.png", classes = "logo-light") {}
-//                img(alt = "logo", src = "img/logo-light.png", classes = "logo-dark") {}
                 img(alt = "logo", src = "img/logo-dark.svg", classes = "logo-light") {}
                 img(alt = "logo", src = "img/logo-light.svg", classes = "logo-dark") {}
             }
             a("#", classes = "mob-menu") {
                 span {}
-                span { }
-                span { }
+                span {}
+                span {}
             }
-            nav("navigation onepage") {
-                ul {
-                    li {
-                        a {
-                            attrs { href = "#home" }
-                            +"Home"
-                        }
+            if (props.isHome) {
+                // onepage nav
+                nav("navigation onepage") {
+                    ul {
+                        menuItem("#home", "Home")
+                        menuItem("#about", "About")
+                        menuItem("#portfolio", "Portfolio")
+                        menuItem("#skills", "What we do")
+                        menuItem("#services", "Services")
+                        menuItem("#process", "Process")
+                        menuItem("#clients", "Clients")
+                        menuItem("#contact", "Contact")
+                        menuItem("/blog.html", "Blog")
+//                        menuItemNav(BLOG_PATH,"Blog")
                     }
-                    li {
-                        a {
-                            attrs { href = "#about" }
-                            +"About"
-                        }
-                    }
-                    li {
-                        a {
-                            attrs { href = "#portfolio" }
-                            +"Portfolio"
-                        }
-                    }
-                    li {
-                        a {
-                            attrs { href = "#skills" }
-                            +"What we do"
-                        }
-                    }
-                    li {
-                        a {
-                            attrs { href = "#services" }
-                            +"Services"
-                        }
-                    }
-                    li {
-                        a {
-                            attrs { href = "#process" }
-                            +"Process"
-                        }
-                    }
-                    li {
-                        a {
-                            attrs { href = "#clients" }
-                            +"Clients"
-                        }
-                    }
-                    li {
-                        a {
-                            attrs { href = "#contact" }
-                            +"Contact"
-                        }
-                    }
-
                 }
+            } else {
+                nav("navigation") {
+                    ul {
+                        menuItem("/", "Home")
+                        menuItem(BLOG_PATH, "Blog", true)
+//                        menuItemNav("/","Home")
+//                        menuItemNav(BLOG_PATH,"Blog")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun RDOMBuilder<UL>.menuItem(link: String, title: String, active:Boolean = false) {
+        li {
+            a(if(active)"active" else "") {
+                attrs { href = link }
+                +title
+            }
+        }
+    }
+
+    private fun RDOMBuilder<UL>.menuItemNav(link: String, title: String) {
+        li {
+            navLink<RProps>(link) {
+                +title
             }
         }
     }

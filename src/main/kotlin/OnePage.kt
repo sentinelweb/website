@@ -1,3 +1,4 @@
+import kotlinx.browser.document
 import kotlinx.html.id
 import kotlinx.html.unsafe
 import react.*
@@ -18,9 +19,10 @@ class OnePage(props: OnePageProps) : RComponent<OnePageProps, OnePageState>(prop
     }
 
     override fun RBuilder.render() {
+        document.title = "Sentinel Web Technologies Ltd"
         div(if(props.lightTheme) "light-navigation" else "") {
             div{attrs{id="preloader"}}
-            header {}
+            header {isHome=true}
             main {
                 attrs { id = "main" }
                 home {}
