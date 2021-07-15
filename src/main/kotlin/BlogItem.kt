@@ -14,8 +14,8 @@ import react.dom.*
 
 
 external interface BlogItemProps : RProps {
-    var lightTheme: Boolean // todo consolidate with onepage
     var index: Int
+    var changeTheme: () -> Unit
 }
 
 data class BlogItemState(
@@ -37,22 +37,23 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
 
     override fun RBuilder.render() {
         document.title = "Sentinel Blog"
-        div(if (props.lightTheme) "light-navigation" else "") {
-            div { attrs { id = "preloader" } }
-            header { isHome = false }
-            main {
-                attrs { id = "main" }
-                renderHero(state.item)
-                renderDetail(state.item)
-                blogNav {
-                    nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { "/blog_item.html?index=${+1}" }
-                    nextTitle = "Next"
-                    prevTarget = props.index.takeIf { it > 0 }?.let { "/blog_item.html?index=${it - 1}" }
-                    prevTitle = "Prev"
-                }
-            }
-            footer {}
+        div { attrs { id = "preloader" } }
+        header {
+            isHome = false
+            changeTheme = props.changeTheme
         }
+        main {
+            attrs { id = "main" }
+            renderHero(state.item)
+            renderDetail(state.item)
+            blogNav {
+                nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { "/blog_item.html?index=${+1}" }
+                nextTitle = "Next"
+                prevTarget = props.index.takeIf { it > 0 }?.let { "/blog_item.html?index=${it - 1}" }
+                prevTitle = "Prev"
+            }
+        }
+        footer {}
     }
 
     private fun RBuilder.renderHero(item: data.BlogItem) {
@@ -63,9 +64,9 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             }
             div("page-title-wrapper text-light") {
                 h1("page-title") { +item.title }
-                p("page-subtitle") {
+                p("page-subtitle serif") {
                     span { +item.date }
-                    renderCategories(item)
+                    renderCategories(item.categories)
                 }
             }
         }
@@ -106,8 +107,8 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
 
 }
 
-fun RDOMBuilder<HtmlBlockTag>.renderCategories(item: data.BlogItem) {
-    item.categories
+fun RDOMBuilder<HtmlBlockTag>.renderCategories(categories: List<data.Category>) {
+    categories
         .takeIf { it.isNotEmpty() }
         ?.let { cats ->
             i("opacity-05") { +" in " }

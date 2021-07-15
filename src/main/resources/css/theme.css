@@ -229,6 +229,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+.switch-theme {
+    width:2rem;
+    height:2rem;
+    display:inline-block;
+    background: #fff;
+    position:relative;
+    float:right;
+    margin: 2rem 1.2rem;
+}
+
+
+.light-navigation .switch-theme {
+    background: #000;
+}
 
 /* Navigation
 ===========================*/

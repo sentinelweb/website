@@ -5,6 +5,6 @@ fun main() {
 
     val root = document.getElementById("root")
     render(root) {
-        app()
+        app{}
     }
 }

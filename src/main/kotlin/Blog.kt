@@ -5,8 +5,8 @@ import react.*
 import react.dom.*
 
 external interface BlogProps : RProps {
-    var lightTheme: Boolean
     var category: data.Category?
+    var changeTheme: () -> Unit
 }
 
 data class BlogState(
@@ -32,16 +32,17 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
 
     override fun RBuilder.render() {
         document.title = "Sentinel Blog"
-        div(if (props.lightTheme) "light-navigation" else "") {
-            div { attrs { id = "preloader" } }
-            header { isHome = false }
-            main {
-                attrs { id = "main" }
-                renderHero()
-                renderBlogList(state.displayList)
-            }
-            footer {}
+        div { attrs { id = "preloader" } }
+        header {
+            isHome = false
+            changeTheme = props.changeTheme
         }
+        main {
+            attrs { id = "main" }
+            renderHero()
+            renderBlogList(state.displayList)
+        }
+        footer {}
     }
 
     private fun RBuilder.renderHero() {
@@ -53,7 +54,7 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
             }
             div("page-title-wrapper text-light") {
                 h1("page-title") {
-                    +"Blog & News"
+                    +(state.category?.title ?: "Blog & News")
                 }
             }
         }
@@ -79,13 +80,13 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
             a(href = link) {
                 img(src = item.img) {}
             }
-            div("details") {
+            div("details serif") {
                 h5("bold uppercase") {
                     a(href = link) { +item.title }
                 }
-                div("serif small") {
+                div("small") {
                     span { +item.date }
-                    renderCategories(item)
+                    renderCategories(item.categories)
                 }
             }
         }

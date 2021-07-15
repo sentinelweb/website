@@ -1,5 +1,7 @@
+import kotlinx.browser.window
 import kotlinx.html.UL
 import kotlinx.html.id
+import kotlinx.html.js.onClickFunction
 import react.*
 import react.dom.*
 import react.dom.header
@@ -7,6 +9,7 @@ import react.router.dom.navLink
 
 external interface HeaderProps : RProps {
     var isHome: Boolean
+    var changeTheme: () -> Unit
 }
 
 data class HeaderState(val unused: String) : RState
@@ -32,10 +35,13 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
                 span {}
                 span {}
             }
+
             if (props.isHome) {
                 // onepage nav
                 nav("navigation onepage") {
+
                     ul {
+                        menuThemeSwitch()
                         menuItem("#home", "Home")
                         menuItem("#about", "About")
                         menuItem("#portfolio", "Portfolio")
@@ -51,11 +57,23 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
             } else {
                 nav("navigation") {
                     ul {
+                        menuThemeSwitch()
                         menuItem("/", "Home")
                         menuItem(BLOG_PATH, "Blog", true)
 //                        menuItemNav("/","Home")
 //                        menuItemNav(BLOG_PATH,"Blog")
                     }
+                }
+            }
+
+        }
+    }
+
+    private fun RDOMBuilder<UL>.menuThemeSwitch() {
+        li {
+            div("switch-theme") {
+                attrs {
+                    onClickFunction = { props.changeTheme() }
                 }
             }
         }
