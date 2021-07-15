@@ -1,12 +1,10 @@
 import data.blogItems
-import kotlinx.browser.document
+import data.unslashedUri
 import kotlinx.browser.window
 import kotlinx.css.CSSBuilder
 import kotlinx.css.Color
 import kotlinx.css.backgroundColor
 import kotlinx.css.html
-import org.w3c.dom.HTMLHtmlElement
-import org.w3c.dom.events.Event
 import org.w3c.dom.get
 import org.w3c.dom.url.URLSearchParams
 import react.*
@@ -20,8 +18,10 @@ const val BLOG_PATH = "/blog.html"
 const val BLOG_CAT = "cat"
 const val BLOG_PATH_CAT = "/blog.html?$BLOG_CAT="
 const val BLOG_ITEM_PATH = "/blog_item.html"
-const val BLOG_ITEM_INDEX = "index"
-const val BLOG_ITEM_PATH_INDEX = "/blog_item.html?$BLOG_ITEM_INDEX="
+
+const val BLOG_ITEM_TITLE = "title"
+
+const val BLOG_ITEM_PATH_TITLE = "/blog_item.html?$BLOG_ITEM_TITLE="
 
 const val STORAGE_LIGHT_THEME = "LIGHT_THEME"
 
@@ -42,12 +42,15 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
             browserRouter {
                 switch {
                     route("/", exact = true) {
-                        onePage { changeTheme = {upadteTheme()} }
+                        onePage { changeTheme = { updateTheme() } }
+                    }
+                    route("/index.html") {
+                        onePage { changeTheme = { updateTheme() } }
                     }
                     route<RProps>(BLOG_PATH) { props ->
                         console.log("blog")
                         blog {
-                            changeTheme = {upadteTheme()}
+                            changeTheme = { updateTheme() }
                             category = URLSearchParams(props.location.search)
                                 .get(BLOG_CAT)
                                 ?.lowercase()
@@ -57,22 +60,27 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
                     route<RProps>(BLOG_ITEM_PATH) { props ->
                         console.log("item")
                         URLSearchParams(props.location.search)
-                            .get(BLOG_ITEM_INDEX)?.toInt()
+                            .run {
+                                get(BLOG_ITEM_TITLE)
+                                    ?.let { param -> blogItems.indexOfFirst { it.unslashedUri() == param } }
+                                    ?.takeIf { it != -1 }
+                            }
                             ?.also { console.log("itemIndex:$it") }
                             //?.takeIf { it > 0 && it < blogItems.size }
                             ?.let {
                                 blogItem {
                                     index = it
+                                    changeTheme = { updateTheme() }
                                 }
                             }
-                            ?: run { blog { changeTheme = {upadteTheme()}} }
+                            ?: run { blog { changeTheme = { updateTheme() } } }
                     }
                 }
             }
         }
     }
 
-    private fun upadteTheme() {
+    private fun updateTheme() {
         val isLight = !state.lightTheme
         window.localStorage.setItem(STORAGE_LIGHT_THEME, isLight.toString())
         setState { lightTheme = isLight }
