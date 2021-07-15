@@ -52,6 +52,7 @@ body{
 	-webkit-transition: opacity 800ms;
 	transition: opacity 800ms;
 	opacity: 1;
+	font-size: 1.8em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -229,6 +230,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+.switch-theme {
+    width:2rem;
+    height:2rem;
+    display:inline-block;
+    background: #fff;
+    position:relative;
+    float:right;
+    margin: 2rem 1.2rem;
+}
+
+
+.light-navigation .switch-theme {
+    background: #000;
+}
 
 /* Navigation
 ===========================*/
@@ -1261,8 +1276,10 @@ h1, h2, h3, h4, h5, h6 {
 	opacity: .7;
 }
 .portfolio-item .item-title a:after {
-	font-family: FontAwesome;
-	content: "\f0c1";
+	/*font-family: FontAwesome;
+	content: "\f0c1";*/
+	font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,Arial,sans-serif;
+    content: "\2197";
 	margin-left: .4em;
 	opacity: 0;
 	-webkit-transition: opacity .2s ease;
@@ -1819,6 +1836,8 @@ a.page-title-wrapper:hover .page-subtitle:after {
 	    -ms-flex: 1;
 	        flex: 1;
 }
+
+
 
 
 /* Project Navigation

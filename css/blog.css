@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap');*/
+.blog-item {
+    /*font-family: 'Literata', sans-serif;*/
+    font-family: 'Quicksand', sans-serif;
+}
+
+.blog-item h1,.blog-item h2,.blog-item h3,.blog-item h4,.blog-item h5,.blog-item h6 {
+    margin-bottom:40px;
+}
+
+.blog-item p {
+    font-size:18px;
+    line-height:180%;
+    margin-top:20px;
+    margin-bottom:20px;
+    color:black;
+}
+
+.blog-item pre code {
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.blog-item div.video{
+    width:100%;
+    text-align:center;
+}
+
+.blog-item a:link {
+     color: rgb(42,69,124);
+     text-decoration:underline;
+}
+
+.blog-item a:visited {
+    color: rgb(67,107,191);
+}
+
+.blog-item a:hover {
+
+}
+
+.blog-item a:hover:after {
+	font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,Arial,sans-serif;
+	content: "\2197";
+	color: rgb(164, 184, 224);
+	margin-left: .2em;
+	text-size:6px;
+}
+
+.blog-cat-link a {
+	color: #909090;
+}
