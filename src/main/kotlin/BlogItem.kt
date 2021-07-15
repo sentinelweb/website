@@ -1,14 +1,13 @@
 import data.blogItems
+import data.item404
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.await
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.html.id
-import kotlinx.html.unsafe
+import kotlinx.html.*
 import org.w3c.dom.HTMLAnchorElement
-import org.w3c.dom.HTMLLinkElement
 import org.w3c.dom.asList
 import react.*
 import react.dom.*
@@ -21,13 +20,19 @@ external interface BlogItemProps : RProps {
 
 data class BlogItemState(
     val item: data.BlogItem,
-    var contentHtml: String? = null//"Loading ..."
+    var contentHtml: String? = null
 ) : RState
 
 class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(props) {
 
     init {
-        state = BlogItemState(blogItems.get(props.index ?: blogItems.size - 1))
+        state = BlogItemState(
+            props.index
+                .takeIf { it >= 0 && it < blogItems.size }
+                ?.let { blogItems.get(props.index) }
+                ?: item404
+
+        )
     }
 
     override fun RBuilder.render() {
@@ -37,45 +42,43 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             header { isHome = false }
             main {
                 attrs { id = "main" }
-                hero(state.item)
-                detail(state.item)
-                blogNav{
-                    nextTarget=props.index.takeIf { it< blogItems.size-1 }?.let{"/blog_item.html?index=${+1}"}
-                    nextTitle="Next"
-                    prevTarget=props.index.takeIf { it>0 }?.let{"/blog_item.html?index=${it - 1}"}
-                    prevTitle="Prev"
+                renderHero(state.item)
+                renderDetail(state.item)
+                blogNav {
+                    nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { "/blog_item.html?index=${+1}" }
+                    nextTitle = "Next"
+                    prevTarget = props.index.takeIf { it > 0 }?.let { "/blog_item.html?index=${it - 1}" }
+                    prevTitle = "Prev"
                 }
             }
             footer {}
         }
     }
 
-    private fun RBuilder.hero(item: data.BlogItem) {
+    private fun RBuilder.renderHero(item: data.BlogItem) {
         section("flex-center background-parallax bg-dark py-14") {
             attrs {
                 setProp("data-background", item.img)
-                setProp("data-overlay", "black; .8")
+                setProp("data-overlay", "black; .6")
             }
             div("page-title-wrapper text-light") {
                 h1("page-title") { +item.title }
                 p("page-subtitle") {
                     span { +item.date }
-                    i("opacity-05") { +" in " }
-                    span("text-links uppercase") {
-                        a(href = item.category.link) { +item.category.title }
-                    }
+                    renderCategories(item)
                 }
             }
         }
     }
 
-    private fun RBuilder.detail(item: data.BlogItem) {
+
+    private fun RBuilder.renderDetail(item: data.BlogItem) {
         section("bg-light pb-6") {
             div("container py-8") {
                 div("col-lg-12 blog-item") {
                     attrs {
                         unsafe {
-                            + (state.contentHtml?:"Loading ...")
+                            +(state.contentHtml ?: "Loading ...")
                         }
                     }
                 }
@@ -103,6 +106,19 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
 
 }
 
+fun RDOMBuilder<HtmlBlockTag>.renderCategories(item: data.BlogItem) {
+    item.categories
+        .takeIf { it.isNotEmpty() }
+        ?.let { cats ->
+            i("opacity-05") { +" in " }
+            cats.forEachIndexed { i, cat ->
+                span("blog-cat-link uppercase") {
+                    a(href = "$BLOG_PATH_CAT${cat.title}") { +cat.title }
+                    +(if (i < cats.size - 1) ", " else "")
+                }
+            }
+        }
+}
 
 fun RBuilder.blogItem(handler: BlogItemProps.() -> Unit): ReactElement {
     return child(BlogItem::class) {

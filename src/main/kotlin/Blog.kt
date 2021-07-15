@@ -5,16 +5,29 @@ import react.*
 import react.dom.*
 
 external interface BlogProps : RProps {
-    var lightTheme: Boolean // todo consolidate with onepage
-    val category: data.Category?
+    var lightTheme: Boolean
+    var category: data.Category?
 }
 
-data class BlogState(val category: data.Category?) : RState
+data class BlogState(
+    val category: data.Category?,
+    val displayList: List<data.BlogItem>
+) : RState
 
 class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
 
     init {
-        state = BlogState(props.category)
+        state = BlogState(
+            props.category,
+            props.category
+                ?.title?.lowercase()
+                ?.let { catName ->
+                    blogItems.filter {
+                        it.categories.filter { it.title.lowercase() == catName }.isNotEmpty()
+                    }
+                }
+                ?: blogItems
+        )
     }
 
     override fun RBuilder.render() {
@@ -24,15 +37,14 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
             header { isHome = false }
             main {
                 attrs { id = "main" }
-                hero()
-                blogList()
-                // todo navigation
+                renderHero()
+                renderBlogList(state.displayList)
             }
             footer {}
         }
     }
 
-    private fun RBuilder.hero() {
+    private fun RBuilder.renderHero() {
         section("flex-center background-parallax bg-dark py-14") {
             attrs {
                 //https://pixabay.com/photos/satellite-image-city-new-york-1030778/
@@ -47,21 +59,21 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
         }
     }
 
-    private fun RBuilder.blogList() {
+    private fun RBuilder.renderBlogList(list: List<data.BlogItem>) {
         section("bg-light pb-6") {
             div("masonry blog") {
                 attrs {
                     setProp("data-gutter", "30")
                     setProp("data-columns", "3")
                 }
-                blogItems.forEachIndexed { i, item ->
-                    blogItem(item, i)
+                list.forEachIndexed { i, item ->
+                    renderBlogItem(item, i)
                 }
             }
         }
     }
 
-    private fun RBuilder.blogItem(item: data.BlogItem, index: Int) {
+    private fun RBuilder.renderBlogItem(item: data.BlogItem, index: Int) {
         article {
             val link = "blog_item.html?index=$index"
             a(href = link) {
@@ -73,10 +85,7 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
                 }
                 div("serif small") {
                     span { +item.date }
-                    i { +" in " }
-                    span("text-links uppercase") {
-                        a(href = item.category.link) { +item.category.title }
-                    }
+                    renderCategories(item)
                 }
             }
         }

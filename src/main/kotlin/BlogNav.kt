@@ -16,13 +16,19 @@ class BlogNav(props: BlogNavProps) : RComponent<BlogNavProps, RState>(props) {
 
     override fun RBuilder.render() {
         div("project-nav") {
-            div("col-6") {
+            div("col-4") {
                 a(href = props.prevTarget ?: "#", classes = props.prevTarget?.let { "" } ?: "disabled") {
                     i("fa fa-long-arrow-left opacity-03") {}
                     h6 { +props.prevTitle }
                 }
             }
-            div("col-6") {
+            div("col-4 text-center") {
+                a(href = BLOG_PATH) {
+                    i("fa fa-long-arrow-up opacity-03") {}
+                    h6 { +"Blog" }
+                }
+            }
+            div("col-4") {
                 a(href = props.nextTarget ?: "#", classes = props.nextTarget?.let { "" } ?: "disabled") {
                     i("fa fa-long-arrow-right opacity-03") {}
                     h6 { +props.nextTitle }
