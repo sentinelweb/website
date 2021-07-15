@@ -229,17 +229,13 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 }
 
-
 .switch-theme {
     width:2rem;
     height:2rem;
     display:inline-block;
     background: #fff;
-    position:relative;
-    float:right;
     margin: 2rem 1.2rem;
 }
-
 
 .light-navigation .switch-theme {
     background: #000;
@@ -496,7 +492,7 @@ h1, h2, h3, h4, h5, h6 {
 	.navigation ul li {
 		display: block;
 		float: none;
-		text-align: left;
+		text-align: center;
 		border-bottom: 1px solid rgba(255, 255, 255, .1);
 	}
 	.navigation > ul > li > a {
