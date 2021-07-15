@@ -72,3 +72,17 @@
     display:block;
     margin:8px;
 }
+
+@media (max-width: 1024px) {
+    .blog-share-ctnr * {
+        margin-left:0px;
+        margin-right:0px;
+        margin-top:0px;
+        margin-bottom:4px;
+    }
+    .blog-share-ctnr {
+        border:0px;
+        background:#0000;
+    }
+
+}

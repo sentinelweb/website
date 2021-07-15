@@ -10,10 +10,9 @@
     Multiplatform</a>
     it made sense that anything new should be available to all platforms and a great library for this is <a
         href="https://arkivanov.github.io/MVIKotlin/">MVIKotlin</a>.
-    It is available for all platforms and is a full feature MVI library - my experience with it was good. 👍
+    It is available for all platforms and is a fully featured MVI library - my experience with it was good. 👍
 </p>
-<p>If you would rather just skip to the code -
-    it's
+<p>If you would rather just skip to the code - it's
     <a href="https://github.com/sentinelweb/cuer/tree/develop/shared/src/commonMain/kotlin/uk/co/sentinelweb/cuer/app/ui/player">here</a>
 </p>
 <h5>Setup</h5>
@@ -150,7 +149,6 @@ Since the description is long (and contains HTML) we only want to update it when
 <pre><code>override suspend fun processLabel(label: PlayerContract.MviStore.Label) {
 when (label) {
 is Command -> label.command.let { command ->
-    log.d(command.toString())
     when (command) {
         is Load -> player?.loadVideo(command.platformId, command.startPosition / 1000f)
         is Play -> player?.play()
@@ -158,7 +156,6 @@ is Command -> label.command.let { command ->
         is SkipBack -> player?.seekTo(lastPositionSec - command.ms / 1000f)
         is SkipFwd -> player?.seekTo(lastPositionSec + command.ms / 1000f)
         is SeekTo -> {
-            log.d(command.toString())
             player?.seekTo(command.ms.toFloat() / 1000f)
         }
     }
@@ -166,6 +163,6 @@ is Command -> label.command.let { command ->
 </code></pre>
 </p>
 <h4>Conclusion</h4>
-<p>I was pleased with he final result. I have an MVI that i can use cross-platform and write a web, iOS or desktop player
+<p>I was pleased with the final result. I have an MVI that i can use cross-platform and write a web, iOS or desktop player View
     that should behave consistently across platforms. The <a href="https://arkivanov.github.io/MVIKotlin/">MVIKotlin</a>
     library is well thought out and written and I can recommend it.</p>
