@@ -60,7 +60,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         section("flex-center background-parallax bg-dark py-14") {
             attrs {
                 setProp("data-background", item.img)
-                setProp("data-overlay", "black; .6")
+                setProp("data-overlay", "black; .3")
             }
             div("page-title-wrapper text-light") {
                 h1("page-title") { +item.title }
