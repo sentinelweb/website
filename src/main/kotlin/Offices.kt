@@ -1,9 +1,6 @@
 import kotlinx.html.id
 import react.*
-import react.dom.attrs
-import react.dom.div
-import react.dom.h5
-import react.dom.section
+import react.dom.*
 
 external interface OficesProps : RProps {
     var x: Boolean

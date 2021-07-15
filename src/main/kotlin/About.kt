@@ -30,10 +30,8 @@ class About(props: AboutProps) : RComponent<AboutProps, AboutState>(props) {
                     }
                     div("col-lg-6") {
                         p("lead") {
-                            +"Consectetur adipisicing elit. Ipsa cupiditate itaque necessitatibus dolor? Lorem ipsum dolor sit amet, Eaque doloremque id est omnis ut saepe impedit magni vel inventore? Sequi similique magni perspiciatis voluptatem distinctio."
-                        }
-                        p("opacity-07") {
-                            +"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consequuntur, blanditiis!"
+                            +"With 25 years experience across many industries and sectors we can help you bring your idea to life. "
+                            +"We believe that great software is crafted by great process and attention to detail. "
                         }
                         p("small uppercase mt-5") {
                             +"Keep scrolling to see our works or "

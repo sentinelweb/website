@@ -1,6 +1,9 @@
+// ./gradlew run --continuous
 val ver_kotlin: String by project
 val ver_kotlin_react: String by project
 val ver_kotlin_styled: String by project
+val ver_kotlin_react_router: String by project
+val ver_coroutines_core: String by project
 
 plugins {
     id("org.jetbrains.kotlin.js") version "1.5.10"
@@ -20,6 +23,10 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$ver_kotlin_react")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$ver_kotlin_react")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:$ver_kotlin_styled")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:$ver_kotlin_react_router")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$ver_coroutines_core")
+
+    implementation(npm("highlight.js", "11.1.0"))
 
 //    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
 //    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
@@ -27,6 +34,7 @@ dependencies {
 
 kotlin {
     js {
+        useCommonJs()
         browser {
             binaries.executable()
             commonWebpackConfig {
@@ -44,7 +52,6 @@ kotlin {
                 devServer = devServer?.copy(port = 3030)
             }
         }
-
     }
 }
 
@@ -59,8 +66,13 @@ kotlin {
 tasks {
     val processResources by getting(Copy::class) {
         doLast {
-            buildDir.resolve("js/packages/website/kotlin-dce-dev/secrets.json")
-                .writeText("""{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }""")
+            listOf("js/packages/website/kotlin-dce/secrets.json", "js/packages/website/kotlin-dce-dev/secrets.json")
+                .map { buildDir.resolve(it) }
+                .map {
+                    it.writeText(
+                        """{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }"""
+                    )
+                }
         }
     }
 }

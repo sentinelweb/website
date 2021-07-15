@@ -110,7 +110,6 @@
 		});
 	}
 
-
 	// Hero sizing JS fallback
 	// cache
 	var pt = $('.sticky-header #main, .fixed-header #main');

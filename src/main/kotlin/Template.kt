@@ -18,7 +18,6 @@ class Template(props: TemplateProps) : RComponent<TemplateProps, TemplateState>(
 
 }
 
-
 fun RBuilder.template(handler: TemplateProps.() -> Unit): ReactElement {
     return child(Template::class) {
         this.attrs(handler)
