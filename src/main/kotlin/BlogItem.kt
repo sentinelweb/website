@@ -1,4 +1,5 @@
 import data.blogItems
+import data.buildUri
 import data.item404
 import kotlinx.browser.document
 import kotlinx.browser.window
@@ -46,14 +47,62 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             attrs { id = "main" }
             renderHero(state.item)
             renderDetail(state.item)
+            renderShare(state.item)
             blogNav {
-                nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { "/blog_item.html?index=${+1}" }
+                nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { blogItems.get(it+1).buildUri() }
                 nextTitle = "Next"
-                prevTarget = props.index.takeIf { it > 0 }?.let { "/blog_item.html?index=${it - 1}" }
+                prevTarget = props.index.takeIf { it > 0 }?.let { blogItems.get(it-1).buildUri() }
                 prevTitle = "Prev"
             }
         }
         footer {}
+    }
+
+    private fun RBuilder.renderShare(item: data.BlogItem) {
+        span("blog-share-ctnr") {
+            twitterShareButton {
+                attrs.url = item.buildUri(true)
+                twitterIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+            emailShareButton {
+                attrs.url = item.buildUri(true)
+                emailIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+            facebookShareButton {
+                attrs.url = item.buildUri(true)
+                facebookIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+            linkedinShareButton {
+                attrs.url = item.buildUri(true)
+                linkedinIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+            redditShareButton {
+                attrs.url = item.buildUri(true)
+                redditIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+            whatsappShareButton {
+                attrs.url = item.buildUri(true)
+                whatsappIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+        }
     }
 
     private fun RBuilder.renderHero(item: data.BlogItem) {
@@ -69,6 +118,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
                     renderCategories(item.categories)
                 }
             }
+
         }
     }
 
@@ -99,8 +149,10 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             }
             hljs.highlightAll()
             document.querySelectorAll(".blog-item a").asList().forEach {
-                console.log(it::class)
-                (it as HTMLAnchorElement).target = "_blank"
+                val htmlAnchorElement = it as HTMLAnchorElement
+                if (it.href.startsWith("http")) {
+                    htmlAnchorElement.target = "_blank"
+                }
             }
         }
     }

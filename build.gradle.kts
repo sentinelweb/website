@@ -4,6 +4,8 @@ val ver_kotlin_react: String by project
 val ver_kotlin_styled: String by project
 val ver_kotlin_react_router: String by project
 val ver_coroutines_core: String by project
+val ver_npm_highlight: String by project
+val ver_npm_react_share: String by project
 
 plugins {
     id("org.jetbrains.kotlin.js") version "1.5.10"
@@ -26,7 +28,8 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:$ver_kotlin_react_router")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$ver_coroutines_core")
 
-    implementation(npm("highlight.js", "11.1.0"))
+    implementation(npm("highlight.js", ver_npm_highlight))
+    implementation(npm("react-share", ver_npm_react_share))
 
 //    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
 //    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")

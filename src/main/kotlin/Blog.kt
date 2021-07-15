@@ -1,4 +1,5 @@
 import data.blogItems
+import data.buildUri
 import kotlinx.browser.document
 import kotlinx.html.id
 import react.*
@@ -76,7 +77,7 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
 
     private fun RBuilder.renderBlogItem(item: data.BlogItem, index: Int) {
         article {
-            val link = "blog_item.html?index=$index"
+            val link = item.buildUri()
             a(href = link) {
                 img(src = item.img) {}
             }
