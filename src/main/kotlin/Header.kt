@@ -41,7 +41,6 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
                 nav("navigation onepage") {
 
                     ul {
-                        menuThemeSwitch()
                         menuItem("#home", "Home")
                         menuItem("#about", "About")
                         menuItem("#portfolio", "Portfolio")
@@ -51,15 +50,16 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
                         menuItem("#clients", "Clients")
                         menuItem("#contact", "Contact")
                         menuItem(BLOG_PATH, "Blog")
+                        menuThemeSwitch()
 //                        menuItemNav(BLOG_PATH,"Blog")
                     }
                 }
             } else {
                 nav("navigation") {
                     ul {
-                        menuThemeSwitch()
                         menuItem("/", "Home")
                         menuItem(BLOG_PATH, "Blog", true)
+                        menuThemeSwitch()
 //                        menuItemNav("/","Home")
 //                        menuItemNav(BLOG_PATH,"Blog")
                     }
@@ -71,10 +71,11 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
 
     private fun RDOMBuilder<UL>.menuThemeSwitch() {
         li {
+            attrs {
+                onClickFunction = { props.changeTheme() }
+            }
             div("switch-theme") {
-                attrs {
-                    onClickFunction = { props.changeTheme() }
-                }
+
             }
         }
     }
