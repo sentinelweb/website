@@ -6,7 +6,8 @@
 }
 
 .blog-item h1,.blog-item h2,.blog-item h3,.blog-item h4,.blog-item h5,.blog-item h6 {
-    margin-bottom:40px;
+    margin-top:40px;
+    margin-bottom:20px;
 }
 
 .blog-item p {
@@ -17,6 +18,9 @@
     color:black;
 }
 
+.blog-item ul {
+       margin-left:40px;
+}
 .blog-item pre code {
     margin-top:20px;
     margin-bottom:20px;
@@ -50,4 +54,21 @@
 
 .blog-cat-link a {
 	color: #909090;
+}
+
+.blog-share-ctnr {
+    position:fixed;
+    top:200px;
+    float:right;
+    display:block;
+    background:#0006;
+    border-left:4px solid #fff4;
+    border-top:4px solid #fff4;
+    border-bottom:4px solid #fff4;
+    right: 0;
+}
+
+.blog-share-ctnr * {
+    display:block;
+    margin:8px;
 }
