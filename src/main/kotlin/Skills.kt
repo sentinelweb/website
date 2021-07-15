@@ -19,29 +19,55 @@ class Skills(props: SkillsProps) : RComponent<SkillsProps, RState>(props) {
             }
             div("container text-light py-10") {
                 div("row") {
-                    div("col-xl-6 col-lg-4") {
+                    div("col-xl-3 col-lg-4") {
                         h4("mt-4") { +"Skills" }
                     }
-                    div("col-xl-6 col-lg-8") {
+                    div("col-xl-9 col-lg-8") {
                         skillGroup {
                             title = "Development"
-                            list = listOf("Kotlin Multi-Platform", "Android", "iOS", "HTML / CSS / JS", "Node JS", "React")
+                            list =
+                                listOf("Kotlin Multi-Platform", "Android", "iOS", "HTML / CSS / JS", "Node JS", "React")
                         }
                         hr("mb-3") { attrs { setProp("data-background", "#444") } }
                         skillGroup {
                             title = "Devops"
-                            list = listOf("Gradle", "Unit testing", "UI Testing", "Database", "Continuous Integration", "Deployment", "Firebase", "AWS")
+                            list = listOf(
+                                "Gradle",
+                                "Unit testing",
+                                "UI Testing",
+                                "Database",
+                                "Continuous Integration",
+                                "Deployment",
+                                "Firebase",
+                                "AWS"
+                            )
                         }
                         hr("mb-3") { attrs { setProp("data-background", "#444") } }
                         skillGroup {
                             title = "Design"
-                            list = listOf("User Experience","User Interface", "Photoshop", "Illustrator", "Prototyping", "User Testing")
+                            list = listOf(
+                                "User Experience",
+                                "User Interface",
+                                "Photoshop",
+                                "Illustrator",
+                                "Prototyping",
+                                "User Testing"
+                            )
                         }
                         hr("mb-3") { attrs { setProp("data-background", "#444") } }
                         skillGroup {
                             title = "Process"
-                            list = listOf("Agile", "Scrum", "Kanban", "Continuous Development", "XP/Pair Programming",
-                                "Feature Driven Developemnt","Behaviour Driven Developemnt","Test Driven Developemnt", "Continuous Delivery")
+                            list = listOf(
+                                "Agile",
+                                "Scrum",
+                                "Kanban",
+                                "Continuous Development",
+                                "XP/Pair Programming",
+                                "Feature Driven Developemnt",
+                                "Behaviour Driven Developemnt",
+                                "Test Driven Developemnt",
+                                "Continuous Delivery"
+                            )
                         }
                     }
                 }
@@ -75,9 +101,9 @@ class SkillGroup(props: SkillGroupProps) : RComponent<SkillGroupProps, RState>(p
             }
             div("col") {
                 div("row") {
-                    props.list.forEach {
+                    props.list.forEachIndexed { i, text ->
                         div("col-4 py-4") {
-                            +it
+                            +text
                         }
                     }
                 }
