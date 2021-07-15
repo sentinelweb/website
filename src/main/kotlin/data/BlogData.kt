@@ -44,7 +44,7 @@ val blogItems = listOf<BlogItem>(
     // https://pixabay.com/photos/architecture-skyscraper-urban-city-768432/
     BlogItem(
         "blog/img/1-architecture-768432_1280.jpg",
-        "Using MVI Kotlin with kotlin coroutines",
+        "Using MVI Kotlin with coroutines",
         "24 May, 2021",
         cats("android", "code"),
         "blog/1-using-mvi-kotlin-with-coroutines.html"
