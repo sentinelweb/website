@@ -33,12 +33,12 @@ val commonMain by getting {
 <h5>Intents &amp; Labels</h5>
 <p>
     I had to build a local video player so this has quite a lot of event based interactions to take care of, since the
-    video player is an android view this will be generating all sorts of video playback events as things like <code>PlayerState</code>
-    and video changes. These will all be feed into the MVI State as Intents. MVI kotlin output both State and Labels
-    (side-effects).
-    Since the video player internally has it own state it makes sense for the MVI to output Labels to the view which can
-    be use to
-    control the actual video player view.
+    video player is an android view this will be generating all sorts of video playback events as things like <code>PlayerStateDomain</code>
+    and video changes. These will all be feed into the MVI <code>State</code> as <code>Intent</code>s. MVI kotlin
+    outputs both
+    <code>State</code> and <code>Label</code>s (side-effects).
+    Since the video player internally has it own state it makes sense for the MVI to output <code>Label</code>s to the
+    <code>MviView</code> which can be used to control the actual video player view.
 </p>
 <p>
     There are also external events the the MVI needs to react to - such as track & playlist change events from the
@@ -72,12 +72,15 @@ This is a great advantage of the MVI pattern as it is transactional many event s
 </p>
 <h4>Contract, Store and View</h4>
 <p>
-    I chose to make a <code>Contract</code> interface for the all definitions related to the <code>Store</code> (<code>Intents</code>,
-    <code>Labels</code> (side-effects) and <code>State</code>) for
-    the controlling side. Similarly, I put the definition for the <code>View</code> here which reacts to the
-    <code>Model</code> and defines UI <code>Events</code> (which are mapped to <code>Intents</code>). So we have
-    <code>interface View : MviView&lt;View.Model, View.Event&gt;</code> - which also defines a
-    <code>fun processLabel</code> which is used by the binder above to process side-effects.
+    I chose to make a <code>Contract</code> interface for the all definitions related to the <code>Store</code> and
+    <code>View</code>. The <code>Store</code> manages processing <code>Intent</code>s, holds the <code>State</code> and emits <code>Label</code>s.
+<pre><code class="language-kotlin">interface MviStore : Store&lt;Intent, State, Label&gt;</code></pre>
+</p><p>
+    Similarly, I put the definition for the <code>View</code> here which reacts to the
+    <code>Model</code> and defines UI <code>Event</code>s (which are mapped to <code>Intent</code>s). So we have:
+<pre><code class="language-kotlin">interface View : MviView&lt;View.Model, View.Event&gt;</code></pre>
+Which also defines a
+<code>fun processLabel</code> which is used by the binder above to process side-effects.
 </p><p>
     I like using <code>Contract</code>'s because they keep all the definitions together. You can find the
     <code>Contract</code> <a
@@ -86,9 +89,9 @@ This is a great advantage of the MVI pattern as it is transactional many event s
 <h4>Store, Executing &amp; Reducing</h4>
 <p>MVIKotlin defines a <code>Store</code> which has a few objects to manage the held <code>State</code>:
 <ul>
-    <li><code>Bootstrapper</code>: Performs <code>Actions</code> on startup to produce <code>Results</code>.</li>
-    <li><code>Executor</code>: Executes <code>Intent</code> to produce <code>Results</code></li>
-    <li><code>Reducer</code>: Reduces <code>Results</code> into the <code>State</code></li>
+    <li><code>Bootstrapper</code>: Performs <code>Action</code>s on startup to produce <code>Result</code>s.</li>
+    <li><code>Executor</code>: Executes <code>Intent</code> to produce <code>Result</code>s</li>
+    <li><code>Reducer</code>: Reduces <code>Result</code>s into the <code>State</code></li>
 </ul>
 The
 <code>Executor</code> is where operations take place. For the player, it updates some external objects. Here is an example for a
@@ -119,7 +122,8 @@ track change:
 </code></pre></p>
 <h4>View</h4>
 <p>
-    The final part is to connect up the View to the MVI controller - for this there are actually a few different views that use
+    The final part is to connect up the View to the MVI controller - for this there are actually a few different views
+    that use
     the same controller. The view just <code>dispatch</code>es <code>Events</code> and reacts to changes in the
     <code>Model</code> and
     <code>Labels</code>. e.g:
@@ -128,7 +132,7 @@ track change:
 
 </p>
 <p>
-    The easiest way to use the <code>View</code> is to define an inner class :
+    The easiest way to use the <code>View</code> is to define an inner class:
 </p>
 <p>
 <pre><code class="language-kotlin">inner class MviViewImpl(playerView: YouTubePlayerView) : BaseMviView&lt;Model, Event&gt;(),
@@ -185,10 +189,9 @@ Since the description is long (and contains HTML) we only want to update it when
 </p>
 
 <h4>Conclusion</h4>
-<p>I was pleased with the final result. I have an MVI controller that I can use cross-platform and write a web, iOS or
-    desktop player <code>MviView</code>
-    that should behave consistently across platforms. The <a href="https://arkivanov.github.io/MVIKotlin/">MVIKotlin</a>
-    library is well thought out and written and I can recommend it.</p>
+<p>I was pleased with the final result. I have an MVI controller that I can use cross-platform and write a Android, iOS, web or
+    desktop player <code>MviView</code> that should behave consistently across platforms. The <a href="https://arkivanov.github.io/MVIKotlin/">MVIKotlin</a>
+    library is well thought out and written - and I can definitley recommend it.</p>
 
 <h4>References</h4>
 <p>

@@ -25,6 +25,11 @@
 .blog-item a {
       word-wrap:break-word;
 }
+
+.blog-item code {
+      padding:0px;
+}
+
 .blog-item pre code {
     margin-top:20px;
     margin-bottom:20px;
