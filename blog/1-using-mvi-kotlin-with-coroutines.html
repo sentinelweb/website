@@ -2,7 +2,7 @@
     During lockdown, I have been working on a little <a href="https://github.com/sentinelweb/cuer">app</a> for video
     content
     to hone my Android skills - I used the app to compare different UI architectures (MVP, MVVM and MVI). The MVI
-    pattern is the latest architecture in vouge.
+    pattern is the latest architecture in vogue.
 </p>
 <h4>MVI Kotlin</h4>
 <p>
@@ -10,10 +10,9 @@
     Multiplatform</a>
     it made sense that anything new should be available to all platforms and a great library for this is <a
         href="https://arkivanov.github.io/MVIKotlin/">MVIKotlin</a>.
-    It is available for all platforms and is a full feature MVI library - my experience with it was good. 👍
+    It is available for all platforms and is a fully featured MVI library - my experience with it was good. 👍
 </p>
-<p>If you would rather just skip to the code -
-    it's
+<p>If you would rather just skip to the code - it's
     <a href="https://github.com/sentinelweb/cuer/tree/develop/shared/src/commonMain/kotlin/uk/co/sentinelweb/cuer/app/ui/player">here</a>
 </p>
 <h5>Setup</h5>
@@ -21,7 +20,7 @@
     Since I am using coroutines in the project I use the coroutines library - it also works with RX Java. But since this
     is a multiplatform project then coroutines are the right way to go. The gradle setup is:
 <pre>
-<code style="language-kotlin">val ver_mvikotlin = 2.0.4 // defined in project properties
+<code class="language-kotlin">val ver_mvikotlin = 2.0.4 // defined in project properties
 val commonMain by getting {
     dependencies {
         implementation("com.arkivanov.mvikotlin:mvikotlin:$ver_mvikotlin")
@@ -34,12 +33,12 @@ val commonMain by getting {
 <h5>Intents &amp; Labels</h5>
 <p>
     I had to build a local video player so this has quite a lot of event based interactions to take care of, since the
-    video player is an android view this will be generating all sorts of video playback events as things like playstate
-    and video changes. These will all be feed into the MVI State as Intents. MVI kotlin output both State and Labels
-    (side-effects).
-    Since the video player internally has it own state it makes sense for the MVI to output Labels to the view whic can
-    be use to
-    control the actual video player view.
+    video player is an android view this will be generating all sorts of video playback events as things like <code>PlayerStateDomain</code>
+    and video changes. These will all be feed into the MVI <code>State</code> as <code>Intent</code>s. MVI kotlin
+    outputs both
+    <code>State</code> and <code>Label</code>s (side-effects).
+    Since the video player internally has it own state it makes sense for the MVI to output <code>Label</code>s to the
+    <code>MviView</code> which can be used to control the actual video player view.
 </p>
 <p>
     There are also external events the the MVI needs to react to - such as track & playlist change events from the
@@ -48,24 +47,24 @@ val commonMain by getting {
 <p>
     MVIKotlin documentation suggests to make a controller to interact with the MVI this can be used to bind the MVI to
     the Intent sources (kotlin Flows) and also to connect the flows according to the view lifecycle.
-<pre><code style="language-kotlin">import com.arkivanov.mvikotlin.extensions.coroutines.*
+<pre><code class="language-kotlin">import com.arkivanov.mvikotlin.extensions.coroutines.* // <-- gets the correct coroutines bindTo
 
 @ExperimentalCoroutinesApi
-fun onViewCreated(views: List<PlayerContract.View>, viewLifecycle: Lifecycle) {
+fun onViewCreated(views: List&lt;PlayerContract.View&gt;, viewLifecycle: Lifecycle) {
     if (binder != null) throw IllegalStateException("Already bound")
     binder = bind(viewLifecycle, BinderLifecycleMode.START_STOP) {
         views.forEach { view ->
-        // store -> view
-        store.states.mapNotNull { modelMapper.map(it) } bindTo view
-        store.labels bindTo { label -> view.processLabel(label) }
+            // store -> view
+            store.states.mapNotNull { modelMapper.map(it) } bindTo view
+            store.labels bindTo { label -> view.processLabel(label) }
 
-        // view -> store
-        view.events.mapNotNull(eventToIntent) bindTo store
-    }
-    // queue -> store
-    queueConsumer.currentItemFlow.filterNotNull().mapNotNull { trackChangeToIntent(it) } bindTo store
-    queueConsumer.currentPlaylistFlow.filterNotNull().mapNotNull { playlistChangeToIntent(it) } bindTo store
-    playControls.intentFlow bindTo store // external player controls
+            // view -> store
+            view.events.mapNotNull(eventToIntent) bindTo store
+        }
+        // queue -> store
+        queueConsumer.currentItemFlow.filterNotNull().mapNotNull { trackChangeToIntent(it) } bindTo store
+        queueConsumer.currentPlaylistFlow.filterNotNull().mapNotNull { playlistChangeToIntent(it) } bindTo store
+        playControls.intentFlow bindTo store // external player controls
     }
 }
 </code></pre>
@@ -73,58 +72,75 @@ This is a great advantage of the MVI pattern as it is transactional many event s
 </p>
 <h4>Contract, Store and View</h4>
 <p>
-    I chose to make a <code>Contract</code> interface where the all definitions for the <code>Store</code> (<code>Intents</code>,
-    <code>Labels</code> and <code>State</code>) which
-    is the controlling side - also make the definition for the <code>View</code> here which reacts to the
-    <code>Model</code>
-    and defines <code>Events</code> - which are mapped to <code>Intents</code>. So we have
-    <code>interface View : MviView&lt;View.Model, View.Event&gt;</code> - which also defines a
-    <code>fun processLabel</code> which is used by the binder above.
+    I chose to make a <code>Contract</code> interface for the all definitions related to the <code>Store</code> and
+    <code>View</code>. The <code>Store</code> manages processing <code>Intent</code>s, holds the <code>State</code> and emits <code>Label</code>s.
+<pre><code class="language-kotlin">interface MviStore : Store&lt;Intent, State, Label&gt;</code></pre>
 </p><p>
-    I like <code>Contract</code>'s because they keep all the
-    definitions together. You can find it <a
+    Similarly, I put the definition for the <code>View</code> here which reacts to the
+    <code>Model</code> and defines UI <code>Event</code>s (which are mapped to <code>Intent</code>s). So we have:
+<pre><code class="language-kotlin">interface View : MviView&lt;View.Model, View.Event&gt;</code></pre>
+Which also defines a
+<code>fun processLabel</code> which is used by the binder above to process side-effects.
+</p><p>
+    I like using <code>Contract</code>'s because they keep all the definitions together. You can find the
+    <code>Contract</code> <a
         href="https://github.com/sentinelweb/cuer/blob/develop/shared/src/commonMain/kotlin/uk/co/sentinelweb/cuer/app/ui/player/PlayerContract.kt">here</a>.
 </p>
-<h4>Executing &amp; Reducing</h4>
-<p>MVIKotlin has few objects:
+<h4>Store, Executing &amp; Reducing</h4>
+<p>MVIKotlin defines a <code>Store</code> which has a few objects to manage the held <code>State</code>:
 <ul>
-    <li><code>Bootstrapper</code>: Performs <code>Actions</code> on startup to produce <code>Results</code>.</li>
-    <li><code>Executor</code>: Executes <code>Intent</code> to produce <code>Results</code></li>
-    <li><code>Reducer</code>: Reduces <code>Results</code> into the <code>State</code></li>
+    <li><code>Bootstrapper</code>: Performs <code>Action</code>s on startup to produce <code>Result</code>s.</li>
+    <li><code>Executor</code>: Executes <code>Intent</code> to produce <code>Result</code>s</li>
+    <li><code>Reducer</code>: Reduces <code>Result</code>s into the <code>State</code></li>
 </ul>
 The
-<code>Executor</code> is where operations take place. For a player it updates some external objects. Here is an example for a
+<code>Executor</code> is where operations take place. For the player, it updates some external objects. Here is an example for a
 track change:
-<pre><code style="language-kotlin">private fun trackChange(intent: Intent.TrackChange) {
+<pre><code class="language-kotlin">private fun trackChange(intent: Intent.TrackChange) {
     intent.item.media.duration?.apply { skip.duration = this }
     livePlaybackController.clear(intent.item.media.platformId)
     // updates the track to the State
     dispatch(Result.SetVideo(intent.item, queueConsumer.playlist))
     // publishes a Label (tells the video view to load the video)
-    publish(Label.Command(Load(intent.item.media.platformId, intent.item.media.positon ?: 0)))
+    publish(Label.Command(Load(intent.item.media.platformId, intent.item.media.position ?: 0)))
     // updates the android media session
     mediaSessionManager.setMedia(intent.item.media, queueConsumer.playlist)
 }
 </code></pre>
 </p>
+<p>So the <code>Store</code> is created using a <code>Factory</code> which has definitions for the
+    <code>Bootstrapper</code>, <code>Executor</code> &amp; <code>Reducer</code>:
+<pre><code class="language-kotlin">fun create(): PlayerContract.MviStore =
+    object : PlayerContract.MviStore, Store&lt;Intent, State, Label&gt; by storeFactory.create(
+        name = "PlayerStore",
+        initialState = PlayerContract.MviStore.State(),
+        bootstrapper = BootstrapperImpl(queueConsumer),
+        executorFactory = { ExecutorImpl(itemLoader, skip) },
+        reducer = ReducerImpl
+    ) {
+    }
+</code></pre></p>
 <h4>View</h4>
 <p>
-    The final part is to connect up the View to the MVI controller - there are actually a few different views that use
-    the same controler. Because
-    there is a well defined interface the view just fires <code>Events</code> and reacts to changes in the
+    The final part is to connect up the View to the MVI controller - for this there are actually a few different views
+    that use
+    the same controller. The view just <code>dispatch</code>es <code>Events</code> and reacts to changes in the
     <code>Model</code> and
-    <code>Labels</code>.
+    <code>Labels</code>. e.g:
+<pre><code class="language-kotlin">binding.castPlayerFab.setOnClickListener { _mviView.dispatch(Event.PlayPauseClicked()) }
+</code></pre>
+
 </p>
 <p>
-    The easiest way was to define an inner class :
+    The easiest way to use the <code>View</code> is to define an inner class:
 </p>
 <p>
-    <code>inner class MviViewImpl(playerView: YouTubePlayerView) : BaseMviView&lt;Model, Event&gt;(),
-        PlayerContract.View</code>
+<pre><code class="language-kotlin">inner class MviViewImpl(playerView: YouTubePlayerView) : BaseMviView&lt;Model, Event&gt;(),
+        PlayerContract.View</code></pre>
 </p>
 <p>
-    Another nice feature is the ability to diff the <code>Model</code> which saves excesive UI updates.
-<pre><code style="language-kotlin">override val renderer: ViewRenderer<Model> = diff {
+    Another nice feature is the ability to diff the <code>Model</code> which saves excessive UI updates.
+<pre><code class="language-kotlin">override val renderer: ViewRenderer&lt;Model&gt; = diff {
     diff(get = Model::description, set = {
         binding.portraitPlayerDescription.setModel(it)
     })
@@ -142,30 +158,52 @@ track change:
     })
 }
 </code></pre>
-Since the description is long (and contains HTML) we only want to update it when it changes not when other
+Since the description is long (and contains HTML) we only want to update it when it changes - not when other
 <code>Model</code> fields change.
 </p>
 <p>
-    Similarly for <code>Labels</code>. We can react to them cleanly.
-<pre><code>override suspend fun processLabel(label: PlayerContract.MviStore.Label) {
-when (label) {
-is Command -> label.command.let { command ->
-    log.d(command.toString())
-    when (command) {
-        is Load -> player?.loadVideo(command.platformId, command.startPosition / 1000f)
-        is Play -> player?.play()
-        is Pause -> player?.pause()
-        is SkipBack -> player?.seekTo(lastPositionSec - command.ms / 1000f)
-        is SkipFwd -> player?.seekTo(lastPositionSec + command.ms / 1000f)
-        is SeekTo -> {
-            log.d(command.toString())
-            player?.seekTo(command.ms.toFloat() / 1000f)
+    Similarly for <code>Labels</code>. We can react to them cleanly. The labels are used to send player commands and
+    navigate to other pages.
+<pre><code class="language-kotlin">override suspend fun processLabel(label: PlayerContract.MviStore.Label) {
+    when (label) {
+    is Command -> label.command.let { command ->
+        when (command) {
+            is Load -> player?.loadVideo(command.platformId, command.startPosition / 1000f)
+            is Play -> player?.play()
+            is Pause -> player?.pause()
+            is SkipBack -> player?.seekTo(lastPositionSec - command.ms / 1000f)
+            is SkipFwd -> player?.seekTo(lastPositionSec + command.ms / 1000f)
+            is SeekTo -> {
+                player?.seekTo(command.ms.toFloat() / 1000f)
+            }
         }
+    }
+    is LinkOpen ->openUrl(label.url)
+    is ChannelOpen ->label.channel.platformId?.let { openYoutubeChannel(it) }
+    is FullScreenPlayerOpen -> {
+        startFullScreenPlayer()
+        finish()
     }
 }
 </code></pre>
 </p>
+
 <h4>Conclusion</h4>
-<p>I was pleased with he final result. I have an MVI that i can use cross-platform and write a web, iOS or desktop player
-    that should behave consistently across platforms. The <a href="https://arkivanov.github.io/MVIKotlin/">MVIKotlin</a>
-    library is well thought out and written and I can recommend it.</p>
+<p>I was pleased with the final result. I have an MVI controller that I can use cross-platform and write a Android, iOS, web or
+    desktop player <code>MviView</code> that should behave consistently across platforms. The <a href="https://arkivanov.github.io/MVIKotlin/">MVIKotlin</a>
+    library is well thought out and written - and I can definitley recommend it.</p>
+
+<h4>References</h4>
+<p>
+<ul>
+    <li><b>MVI Kotlin Documentation</b>: <a href="https://arkivanov.github.io/MVIKotlin/">https://arkivanov.github.io/MVIKotlin/</a>
+    </li>
+    <li><b>MVI Kotlin github</b>: <a href="https://github.com/arkivanov/MVIKotlin">https://github.com/arkivanov/MVIKotlin</a>
+    </li>
+    <li><b>Jetbrains compose examples todo app</b>: <a
+            href="https://github.com/JetBrains/compose-jb/tree/master/examples/todoapp">https://github.com/JetBrains/compose-jb/tree/master/examples/todoapp</a>
+    </li>
+    <li><b>Cuer github</b>: <a href="https://github.com/sentinelweb/cuer">https://github.com/sentinelweb/cuer</a></li>
+    <li><b>Cuer website</b>: <a href="https://cuer.app">https://cuer.app</a></li>
+</ul>
+</p>

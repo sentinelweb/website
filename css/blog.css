@@ -21,6 +21,15 @@
 .blog-item ul {
        margin-left:40px;
 }
+
+.blog-item a {
+      word-wrap:break-word;
+}
+
+.blog-item code {
+      padding:0px;
+}
+
 .blog-item pre code {
     margin-top:20px;
     margin-bottom:20px;
@@ -71,4 +80,29 @@
 .blog-share-ctnr * {
     display:block;
     margin:8px;
+    filter: grayscale(1);
+    transition: filter .5s;
+}
+
+.blog-share-ctnr:hover * {
+    display:block;
+    margin:8px;
+    filter: grayscale(0);
+    transition: filter .5s;
+}
+
+@media (max-width: 1024px) {
+
+    .blog-share-ctnr * {
+        margin-left:0px;
+        margin-right:0px;
+        margin-top:0px;
+        margin-bottom:4px;
+    }
+
+    .blog-share-ctnr{
+        border:0px;
+        background:#0000;
+    }
+
 }
