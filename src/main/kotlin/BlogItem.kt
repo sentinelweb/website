@@ -59,8 +59,6 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         footer {}
     }
 
-
-
     private fun RBuilder.renderHero(item: data.BlogItem) {
         section("flex-center background-parallax bg-dark py-14") {
             attrs {
