@@ -57,14 +57,13 @@ val blogItems = listOf<BlogItem>(
         cats("android", "code"),
         "blog/2-setup-theme-in-jetpack-compose.html"
     ),
-    // https://pixabay.com/photos/piano-piano-keys-keyboard-3505109/
-    BlogItem(
-        "blog/img/3-background-3045402_1280.png",
-        "Using a web template with Kotlin JS / React",
-        "22 June, 2021",
-        cats("web", "code"),
-        "blog/3-using-a-web-template-with-kotlin-js-react.html"
-    )
+//    BlogItem(
+//        "blog/img/3-background-3045402_1280.png",
+//        "Using a web template with Kotlin JS / React",
+//        "22 June, 2021",
+//        cats("web", "code"),
+//        "blog/3-using-a-web-template-with-kotlin-js-react.html"
+//    )
 ).reversed()
 
 val item404 = BlogItem(

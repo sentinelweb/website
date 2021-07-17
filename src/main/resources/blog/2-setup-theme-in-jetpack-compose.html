@@ -1,0 +1,116 @@
+<p>When setting up an existing Android project to use Jetpack compose - we want to re-use the standard MDC theme so that
+    our compose views use the same theme coloring, typography and shapes as our standard Android views.
+</p>
+<h4>MDC-Android Compose Theme Adapter</h4>
+<p><a href="https://github.com/material-components/material-components-android-compose-theme-adapter">The MDC-Android
+    Compose Theme Adapter</a>
+    handles the import of the xml-based Android MDC Theme and lets you create a compose theme that looks the same. The
+    library is
+    part of the material-components library and you can use the same version as for compose:</p>
+<pre><code class="language-kotlin">implementation "com.google.android.material:compose-theme-adapter:$ver_compose</code></pre>
+<p>
+    In the MDC Theme we have:
+<pre><code class="language-xml">&lt;-- Colors --&gt;
+&lt;item name="colorPrimary"&gt;@color/primary&lt;/item&gt;
+&lt;item name="colorPrimaryDark"&gt;@color/primary_dark&lt;/item&gt;
+&lt;item name="colorPrimaryVariant"&gt;@color/primary_variant&lt;/item&gt;
+&lt;item name="colorOnPrimary"&gt;@color/primary_on&lt;/item&gt;
+&lt;item name="colorSecondary"&gt;@color/secondary&lt;/item&gt;
+&lt;item name="colorSecondaryVariant"&gt;@color/secondary_variant&lt;/item&gt;
+&lt;item name="colorOnSecondary"&gt;@color/secondary_on&lt;/item&gt;
+&lt;item name="colorAccent"&gt;@color/accent&lt;/item&gt;
+&lt;item name="colorControlNormal"&gt;@color/control_control_normal&lt;/item&gt;
+&lt;item name="colorControlActivated"&gt;@color/control_control_activated&lt;/item&gt;
+&lt;item name="colorControlHighlight"&gt;@color/control_control_highlight&lt;/item&gt;
+&lt;item name="colorSurface"&gt;@color/surface&lt;/item&gt;
+&lt;item name="android:colorControlNormal"&gt;@color/control_control_normal&lt;/item&gt;
+&lt;item name="android:colorControlActivated"&gt;@color/control_control_activated&lt;/item&gt;
+&lt;item name="android:colorControlHighlight"&gt;@color/control_control_highlight&lt;/item&gt;
+&lt;item name="android:textColorPrimary"&gt;@color/text_primary&lt;/item&gt;
+&lt;item name="android:textColorSecondary"&gt;@color/text_secondary&lt;/item&gt;
+&lt;item name="android:colorBackground"&gt;@color/background&lt;/item&gt;
+&lt;item name="android:statusBarColor"&gt;?attr/colorNavigation&lt;/item&gt;
+&lt;item name="android:navigationBarColor"&gt;?attr/colorNavigation&lt;/item&gt;
+
+&lt;-- Type --&gt;
+&lt;item name="textAppearanceButton"&gt;@style/TextAppearance.App.Button&lt;/item&gt;
+&lt;item name="textAppearanceHeadline1"&gt;@style/TextAppearance.App.Headline1&lt;/item&gt;
+&lt;item name="textAppearanceHeadline2"&gt;@style/TextAppearance.App.Headline2&lt;/item&gt;
+&lt;item name="textAppearanceHeadline3"&gt;@style/TextAppearance.App.Headline3&lt;/item&gt;
+&lt;item name="textAppearanceHeadline4"&gt;@style/TextAppearance.App.Headline4&lt;/item&gt;
+&lt;item name="textAppearanceHeadline5"&gt;@style/TextAppearance.App.Headline5&lt;/item&gt;
+&lt;item name="textAppearanceHeadline6"&gt;@style/TextAppearance.App.Headline6&lt;/item&gt;
+&lt;item name="textAppearanceBody1"&gt;@style/TextAppearance.App.Body1&lt;/item&gt;
+&lt;item name="textAppearanceBody2"&gt;@style/TextAppearance.App.Body2&lt;/item&gt;
+&lt;item name="textAppearanceCaption"&gt;@style/TextAppearance.App.Caption&lt;/item&gt;
+&lt;item name="textAppearanceSubtitle1"&gt;@style/TextAppearance.App.Subtitle1&lt;/item&gt;
+&lt;item name="textAppearanceSubtitle2"&gt;@style/TextAppearance.App.Subtitle2&lt;/item&gt;
+&lt;item name="textAppearanceOverline"&gt;@style/TextAppearance.App.Overline&lt;/item&gt;
+&lt;item name="fontFamily"&gt;?bodyFont&lt;/item&gt;
+
+&lt;-- Shapes --&gt;
+&lt;item name="shapeAppearanceSmallComponent"&gt;@style/ShapeAppearance.Small&lt;/item&gt;
+&lt;item name="shapeAppearanceMediumComponent"&gt;@style/ShapeAppearance.Medium&lt;/item&gt;
+&lt;item name="shapeAppearanceLargeComponent"&gt;@style/ShapeAppearance.Large&lt;/item&gt;</code></pre>
+Note there are some attributes here that are used to define common values that are use for the text styles:
+<pre><code class="language-xml">&lt;item name="bodyFont"&gt;@font/montserrat&lt;/item&gt;
+&lt;item name="headlineFont"&gt;@font/didact_gothic&lt;/item&gt;
+&lt;item name="headlineFontLetterSpacing"&gt;0.02&lt;/item&gt;
+&lt;item name="headlineFontXScaling"&gt;1.05&lt;/item&gt;</code></pre>
+</p>
+<h5>Creating the compose theme</h5>
+<p>To create the theme we can make a function to return the theming object:
+<pre><code class="language-kotlin">@Composable
+fun CuerTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit,
+) {
+    val context = LocalContext.current
+    val layoutDirection = LocalLayoutDirection.current
+    var (colors, type, shapes) = createMdcTheme(
+        context = context,
+        layoutDirection = layoutDirection
+    )
+
+    MaterialTheme(
+        colors = colors ?: throw IllegalArgumentException("Colors were not imported from MDC theme"),
+        typography = type ?: throw IllegalArgumentException("Typography was not imported from MDC theme"),
+        shapes = shapes ?: throw IllegalArgumentException("Shapes were not imported from MDC theme"),
+        content = content
+    )
+}</code></pre>
+There are a few things to note here:
+<ul>
+    <li>This should be a function to ensure the correct theme attributes are used at all times. There is no need to cache the
+        returned theme object. And you definitely shouldn't do that.
+    </li>
+    <li>The values for <code>(colors, type, shapes)</code> are nullable, in the event that say, <code>shapeAppearanceXXXComponent</code> attributes aren't
+        set in your theme.xml then this value will be null so you can either make a default
+        <code>androidx.compose.material.Shapes</code> object here (i.e. <code>shapes ?: Shapes()</code>) or throw an
+        <code>Exception</code> as above to ensure fast-failure.
+    </li>
+    <li>The <code>darkTheme</code> attribute can be used to override elements in the darkTheme as needed.</li>
+</ul>
+</p>
+<h5>Using the compose theme</h5>
+<p>When we use the theme we can use it similarly to using a custom compose theme:
+<pre><code class="language-kotlin">@Composable
+fun ArbitraryRootView(...) {
+    CuerTheme {
+        Surface {
+            Text(
+                text = "Hello world",
+                style = MaterialTheme.typography.h1
+            )
+        }
+    }
+}</code></pre>
+</p>
+<h4>References</h4>
+<p>
+<ul>
+    <li><b>MDC-Android Compose Theme Adapter</b>:
+        <a href="https://github.com/material-components/material-components-android-compose-theme-adapter">https://github.com/material-components/material-components-android-compose-theme-adapter</a>
+    </li>
+</ul>
+</p>
