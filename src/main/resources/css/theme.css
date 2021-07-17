@@ -115,6 +115,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: #000;
 	border-bottom: 1px solid rgba(255, 255, 255, .08);
 	z-index: 1001;
+    transition: background-color .5s;
 }
 #footer{
 	position: relative;
@@ -138,6 +139,8 @@ h1, h2, h3, h4, h5, h6 {
 	z-index: 999;
 	-webkit-transform: translateZ(0);
 	        transform: translateZ(0);
+
+    transition: background-color .5s;
 }
 @media (max-width: 768px) {
 	#footer {
@@ -235,6 +238,7 @@ h1, h2, h3, h4, h5, h6 {
     display:inline-block;
     background: #fff;
     margin: 2rem 1.2rem;
+    transition: background .5s;
 }
 
 .light-navigation .switch-theme {
@@ -581,6 +585,7 @@ h1, h2, h3, h4, h5, h6 {
 .light-navigation #header {
 	background-color: #fff;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	transition: background-color .5s;
 }
 .light-navigation #header .logo {
 	color: #000;
@@ -626,6 +631,8 @@ h1, h2, h3, h4, h5, h6 {
 .light-navigation #footer {
 	background-color: #fff;
 	border-top: 1px solid rgba(0, 0, 0, 0.08);
+	transition: background-color .5s;
+
 }
 .light-navigation #footer .text-links {
 	color: #757575;
