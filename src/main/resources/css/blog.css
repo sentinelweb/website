@@ -21,6 +21,10 @@
 .blog-item ul {
        margin-left:40px;
 }
+
+.blog-item a {
+      word-wrap:break-word;
+}
 .blog-item pre code {
     margin-top:20px;
     margin-bottom:20px;
@@ -89,7 +93,6 @@
         margin-right:0px;
         margin-top:0px;
         margin-bottom:4px;
-        filter: grayscale(0);
     }
 
     .blog-share-ctnr{

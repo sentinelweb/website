@@ -58,6 +58,39 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         footer {}
     }
 
+
+
+    private fun RBuilder.renderHero(item: data.BlogItem) {
+        section("flex-center background-parallax bg-dark py-14") {
+            attrs {
+                setProp("data-background", item.img)
+                setProp("data-overlay", "black; .3")
+            }
+            div("page-title-wrapper text-light") {
+                h1("page-title") { +item.title }
+                p("page-subtitle serif") {
+                    span { +item.date }
+                    renderCategories(item.categories)
+                }
+            }
+
+        }
+    }
+
+    private fun RBuilder.renderDetail(item: data.BlogItem) {
+        section("bg-light pb-6 pr-2") {
+            div("container py-8") {
+                div("col-lg-12 blog-item") {
+                    attrs {
+                        unsafe {
+                            +(state.contentHtml ?: "Loading ...")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun RBuilder.renderShare(item: data.BlogItem) {
         span("blog-share-ctnr") {
             twitterShareButton {
@@ -100,38 +133,6 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
                 whatsappIcon {
                     attrs.size = 32
                     attrs.round = true
-                }
-            }
-        }
-    }
-
-    private fun RBuilder.renderHero(item: data.BlogItem) {
-        section("flex-center background-parallax bg-dark py-14") {
-            attrs {
-                setProp("data-background", item.img)
-                setProp("data-overlay", "black; .3")
-            }
-            div("page-title-wrapper text-light") {
-                h1("page-title") { +item.title }
-                p("page-subtitle serif") {
-                    span { +item.date }
-                    renderCategories(item.categories)
-                }
-            }
-
-        }
-    }
-
-
-    private fun RBuilder.renderDetail(item: data.BlogItem) {
-        section("bg-light pb-6") {
-            div("container py-8") {
-                div("col-lg-12 blog-item") {
-                    attrs {
-                        unsafe {
-                            +(state.contentHtml ?: "Loading ...")
-                        }
-                    }
                 }
             }
         }
