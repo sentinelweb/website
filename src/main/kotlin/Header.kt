@@ -59,6 +59,7 @@ class Header(props: HeaderProps) : RComponent<HeaderProps, HeaderState>(props) {
                     ul {
                         menuItem("/", "Home")
                         menuItem(BLOG_PATH, "Blog", true)
+                        menuItem("#contact", "Contact")
                         menuThemeSwitch()
 //                        menuItemNav("/","Home")
 //                        menuItemNav(BLOG_PATH,"Blog")

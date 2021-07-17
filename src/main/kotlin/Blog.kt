@@ -42,6 +42,7 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
             attrs { id = "main" }
             renderHero()
             renderBlogList(state.displayList)
+            contact {}
         }
         footer {}
     }

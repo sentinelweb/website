@@ -47,13 +47,14 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             attrs { id = "main" }
             renderHero(state.item)
             renderDetail(state.item)
-            renderShare(state.item)
             blogNav {
                 nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { blogItems.get(it+1).buildUri() }
                 nextTitle = "Next"
                 prevTarget = props.index.takeIf { it > 0 }?.let { blogItems.get(it-1).buildUri() }
                 prevTitle = "Prev"
             }
+            contact {}
+            renderShare(state.item)
         }
         footer {}
     }

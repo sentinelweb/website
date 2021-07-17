@@ -1,4 +1,4 @@
-<p>When seting up an existing Android project to use Jetpack compose - we want to re-use the standard MDC theme so that
+<p>When setting up an existing Android project to use Jetpack compose - we want to re-use the standard MDC theme so that
     our compose views use the same theme coloring, typography and shapes as our standard Android views.
 </p>
 <h4>MDC-Android Compose Theme Adapter</h4>
@@ -59,7 +59,7 @@ Note there are some attributes here that are used to define common values that a
 &lt;item name="headlineFontXScaling"&gt;1.05&lt;/item&gt;</code></pre>
 </p>
 <h5>Creating the compose theme</h5>
-<p>When we use the theme we can
+<p>To create the theme we can make a function to return the theming object:
 <pre><code class="language-kotlin">@Composable
 fun CuerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -81,15 +81,15 @@ fun CuerTheme(
 }</code></pre>
 There are a few things to note here:
 <ul>
-    <li>This should be a function to ensure the correct theme is used at all times. There is not need to cache the
-        returned theme object.
+    <li>This should be a function to ensure the correct theme attributes are used at all times. There is no need to cache the
+        returned theme object. And you definitely shouldn't do that.
     </li>
-    <li>The values for <code>(colors, type, shapes)</code> are nullable, in the event that say shape attributes aren't
+    <li>The values for <code>(colors, type, shapes)</code> are nullable, in the event that say, <code>shapeAppearanceXXXComponent</code> attributes aren't
         set in your theme.xml then this value will be null so you can either make a default
         <code>androidx.compose.material.Shapes</code> object here (i.e. <code>shapes ?: Shapes()</code>) or throw an
         <code>Exception</code> as above to ensure fast-failure.
     </li>
-    <li>The <code>darkTheme</code> attribute can be used to override elements in the darlTheme as needed.</li>
+    <li>The <code>darkTheme</code> attribute can be used to override elements in the darkTheme as needed.</li>
 </ul>
 </p>
 <h5>Using the compose theme</h5>
