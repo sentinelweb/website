@@ -3,10 +3,9 @@
 </p>
 <h4>MDC-Android Compose Theme Adapter</h4>
 <p><a href="https://github.com/material-components/material-components-android-compose-theme-adapter">The MDC-Android
-    Compose Theme Adapter</a>
-    handles the import of the xml-based Android MDC Theme and lets you create a compose theme that looks the same. The
-    library is
-    part of the material-components library and you can use the same version as for compose:</p>
+    Compose Theme Adapter</a> handles the import of the XML-based Android MDC theme and lets you create a compose theme
+    that looks the same. The library is part of the material-components library and you can use the same version as for
+    compose:</p>
 <pre><code class="language-kotlin">implementation "com.google.android.material:compose-theme-adapter:$ver_compose</code></pre>
 <p>
     In the MDC Theme we have:
@@ -81,15 +80,22 @@ fun CuerTheme(
 }</code></pre>
 There are a few things to note here:
 <ul>
-    <li>This should be a function to ensure the correct theme attributes are used at all times. There is no need to cache the
-        returned theme object. And you definitely shouldn't do that.
+    <li>This should be a function to ensure the correct theme attributes are used at all times. There is no need to
+        cache the returned theme object. And you definitely shouldn't do that.
     </li>
-    <li>The values for <code>(colors, type, shapes)</code> are nullable, in the event that say, <code>shapeAppearanceXXXComponent</code> attributes aren't
-        set in your theme.xml then this value will be null so you can either make a default
+    <li>The values for <code>(colors, type, shapes)</code> are nullable, in the event that say, <code>shapeAppearanceXXXComponent</code>
+        attributes aren't set in your theme.xml then this value will be null so you can either make a default
         <code>androidx.compose.material.Shapes</code> object here (i.e. <code>shapes ?: Shapes()</code>) or throw an
         <code>Exception</code> as above to ensure fast-failure.
     </li>
-    <li>The <code>darkTheme</code> attribute can be used to override elements in the darkTheme as needed.</li>
+    <li>The <code>darkTheme</code> attribute can be used to override elements in the darkTheme as needed.
+        But the values also come through from the MDC theme
+    </li>
+    <li>Since I have used things like <code>android:letterSpacing</code>, <code>android:textScaleX</code> in the text
+        appearance styles, some of the text styles looked a bit different in the compose view, so I made a Typography
+        object to some text types. It's not recommended to use the attributes in text appearance styles though. IMHO it
+        should be so that fonts can be controlled better.
+    </li>
 </ul>
 </p>
 <h5>Using the compose theme</h5>
