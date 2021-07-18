@@ -1,0 +1,11 @@
+<OpenSearchDescription>
+    <ShortName>Sentinel Web Technologies Ltd</ShortName>
+    <Description>
+        Sentinel web technologies design and build experiences for mobile and web - using kotlin multiplatform, android, iOS, java, swift, html, javascript, react, firebase, AWS in London, and Chamonix, France
+    </Description>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Image width="16" height="16" type="image/x-icon">
+        https://sentinelweb.co.uk/img/icon.png
+    </Image>
+    <Url type="text/html" method="get" template="https://sentinelweb.co.uk/"/>
+</OpenSearchDescription>

@@ -15,6 +15,8 @@ fun BlogItem.unslashedUri() = contentUri.replace("/", "_")
 
 fun BlogItem.buildUri(absolute: Boolean = false) =
     (if (absolute) window.location.origin else "") + "$BLOG_ITEM_PATH_TITLE${unslashedUri()}"
+fun BlogItem.buildImgUri(absolute: Boolean = true) =
+    (if (absolute) window.location.origin else "") + this.img
 
 data class Category(
     val title: String
@@ -41,6 +43,14 @@ val blogItems = listOf<BlogItem>(
         cats("process"),
         "blog/0-the-importance-of-process.html"
     ),
+    // https://pixabay.com/photos/piano-piano-keys-keyboard-3505109/
+    BlogItem(
+        "blog/img/2-piano-3505109_1280.jpg",
+        "Setting up MDC themes for Jetpack Compose",
+        "14 April, 2021",
+        cats("android", "code"),
+        "blog/2-setup-theme-in-jetpack-compose.html"
+    ),
     // https://pixabay.com/photos/architecture-skyscraper-urban-city-768432/
     BlogItem(
         "blog/img/1-architecture-768432_1280.jpg",
@@ -49,14 +59,7 @@ val blogItems = listOf<BlogItem>(
         cats("android", "code"),
         "blog/1-using-mvi-kotlin-with-coroutines.html"
     ),
-    // https://pixabay.com/photos/piano-piano-keys-keyboard-3505109/
-    BlogItem(
-        "blog/img/2-piano-3505109_1280.jpg",
-        "Setting up themes in Jetpack Compose",
-        "14 April, 2021",
-        cats("android", "code"),
-        "blog/2-setup-theme-in-jetpack-compose.html"
-    ),
+    // https://pixabay.com/photos/background-geometric-triangle-3045402/
 //    BlogItem(
 //        "blog/img/3-background-3045402_1280.png",
 //        "Using a web template with Kotlin JS / React",

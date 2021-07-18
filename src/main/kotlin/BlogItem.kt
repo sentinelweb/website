@@ -1,4 +1,5 @@
 import data.blogItems
+import data.buildImgUri
 import data.buildUri
 import data.item404
 import kotlinx.browser.document
@@ -37,7 +38,26 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
     }
 
     override fun RBuilder.render() {
-        document.title = "Sentinel Blog"
+        document.title = state.item.title
+        val description = state.contentHtml?.substring(200) ?: state.item.title
+        document.querySelector("meta[name=\"description\"]")
+            ?.setAttribute("content", description);
+
+        document.querySelector("meta[name=\"twitter:title\"]")
+            ?.setAttribute("content", state.item.title)
+        document.querySelector("meta[name=\"twitter:title\"]")
+            ?.setAttribute("property", "og:title")
+
+        document.querySelector("meta[name=\"twitter:image\"]")
+            ?.setAttribute("content", state.item.buildImgUri(true))
+        document.querySelector("meta[name=\"twitter:image\"]")
+            ?.setAttribute("property", "og:image")
+
+        document.querySelector("meta[name=\"twitter:description\"]")
+            ?.setAttribute("content", description)
+        document.querySelector("meta[name=\"twitter:description\"]")
+            ?.setAttribute("property", "og:description")
+
         div { attrs { id = "preloader" } }
         header {
             isHome = false
@@ -46,11 +66,11 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         main {
             attrs { id = "main" }
             renderHero(state.item)
-            renderDetail(state.item)
+            renderDetail()
             blogNav {
-                nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { blogItems.get(it+1).buildUri() }
+                nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { blogItems.get(it + 1).buildUri() }
                 nextTitle = "Next"
-                prevTarget = props.index.takeIf { it > 0 }?.let { blogItems.get(it-1).buildUri() }
+                prevTarget = props.index.takeIf { it > 0 }?.let { blogItems.get(it - 1).buildUri() }
                 prevTitle = "Prev"
             }
             contact {}
@@ -76,7 +96,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         }
     }
 
-    private fun RBuilder.renderDetail(item: data.BlogItem) {
+    private fun RBuilder.renderDetail() {
         section("bg-light pb-6 pr-2") {
             div("container py-8") {
                 div("col-lg-12 blog-item") {
@@ -94,6 +114,9 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         span("blog-share-ctnr") {
             twitterShareButton {
                 attrs.url = item.buildUri(true)
+                attrs.title = item.title
+                attrs.via = "sentinelwebtech"
+                attrs.hashtags = item.categories.map { it.title }.toTypedArray()
                 twitterIcon {
                     attrs.size = 32
                     attrs.round = true
@@ -101,6 +124,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             }
             emailShareButton {
                 attrs.url = item.buildUri(true)
+                attrs.subject = item.title
                 emailIcon {
                     attrs.size = 32
                     attrs.round = true
@@ -108,6 +132,8 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             }
             facebookShareButton {
                 attrs.url = item.buildUri(true)
+                attrs.quote = item.title
+                attrs.hashtag = item.categories.takeIf { it.isNotEmpty() }?.get(0)?.let { "#" + it.title }
                 facebookIcon {
                     attrs.size = 32
                     attrs.round = true
@@ -115,6 +141,8 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             }
             linkedinShareButton {
                 attrs.url = item.buildUri(true)
+                attrs.title = item.title
+                attrs.source = "https://sentinelweb.co.uk"
                 linkedinIcon {
                     attrs.size = 32
                     attrs.round = true
@@ -122,6 +150,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             }
             redditShareButton {
                 attrs.url = item.buildUri(true)
+                attrs.title = item.title
                 redditIcon {
                     attrs.size = 32
                     attrs.round = true
@@ -129,7 +158,24 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             }
             whatsappShareButton {
                 attrs.url = item.buildUri(true)
+                attrs.title = item.title
                 whatsappIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+            pocketShareButton {
+                attrs.url = item.buildUri(true)
+                attrs.title = item.title
+                pocketIcon {
+                    attrs.size = 32
+                    attrs.round = true
+                }
+            }
+            telegramShareButton {
+                attrs.url = item.buildUri(true)
+                attrs.title = item.title
+                telegramIcon {
                     attrs.size = 32
                     attrs.round = true
                 }
