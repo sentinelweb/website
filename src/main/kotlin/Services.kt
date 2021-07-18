@@ -59,7 +59,7 @@ external interface ServiceProps : RProps {
 class Service(props: ServiceProps) : RComponent<ServiceProps, RState>(props) {
 
     override fun RBuilder.render() {
-        div(){
+        div{
             attrs { setProp("data-animation", "fade-in-bottom 1.2s .2s") }
             + props.title
         }
@@ -74,44 +74,3 @@ fun RBuilder.service(handler: ServiceProps.() -> Unit): ReactElement {
         this.attrs(handler)
     }
 }
-
-//<section id="services" class="bg-lines py-sm-13 py-10 px-7">
-//<div class="container p-0">
-//<div class="row no-gutters">
-//
-//<div class="col-md-6">
-//<h5 class="mb-8">SERVICES.</h5>
-//</div>
-//
-//<div class="col-md-6">
-//
-//<!-- Service Item -->
-//<div data-animation="fade-in-bottom 1.2s .2s">
-//<h5 class="uppercase">n</h5>
-//<p class="small">Lorem ipsum doWeb Desiglor sit amet, consectetur adipisicing elit. Eaque quae, totam mollitia sequi vero eum facilis harum rerum nobis, cum ut quaerat reprehenderit numquam quos, minus perspiciatis perferendis. Enim, perferendis.</p>
-//</div>
-//<!-- /Service Item -->
-//
-//<hr class="separator-left my-6">
-//
-//<!-- Service Item -->
-//<div data-animation="fade-in-bottom 1.2s .4s">
-//<h5 class="uppercase">Web Development</h5>
-//<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque quae, totam mollitia sequi vero eum facilis harum rerum nobis, cum ut quaerat reprehenderit numquam quos, minus perspiciatis perferendis. Enim, perferendis.</p>
-//</div>
-//<!-- /Service Item -->
-//
-//<hr class="separator-left my-6">
-//
-//<!-- Service Item -->
-//<div data-animation="fade-in-bottom 1.2s .6s">
-//<h5 class="uppercase">Illustration</h5>
-//<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque quae, totam mollitia sequi vero eum facilis harum rerum nobis, cum ut quaerat reprehenderit numquam quos, minus perspiciatis perferendis. Enim, perferendis.</p>
-//</div>
-//<!-- /Service Item -->
-//
-//</div>
-//
-//</div>
-//</div>
-//</section>

@@ -31,7 +31,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
         state = BlogItemState(
             props.index
                 .takeIf { it >= 0 && it < blogItems.size }
-                ?.let { blogItems.get(props.index) }
+                ?.let { blogItems[props.index] }
                 ?: item404
 
         )
@@ -68,9 +68,9 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
             renderHero(state.item)
             renderDetail()
             blogNav {
-                nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { blogItems.get(it + 1).buildUri() }
+                nextTarget = props.index.takeIf { it < blogItems.size - 1 }?.let { blogItems[it + 1].buildUri() }
                 nextTitle = "Next"
-                prevTarget = props.index.takeIf { it > 0 }?.let { blogItems.get(it - 1).buildUri() }
+                prevTarget = props.index.takeIf { it > 0 }?.let { blogItems[it - 1].buildUri() }
                 prevTitle = "Prev"
             }
             contact {}
@@ -232,98 +232,3 @@ suspend fun fetchContent(relative: String): String = coroutineScope {
         .text()
         .await()
 }
-//
-//"""
-//<!-- Hero -->
-//		<section class="flex-center background-parallax bg-dark py-14" data-background="img/gallery/85.jpg" data-overlay="black; .8">
-//			<div class="page-title-wrapper text-light">
-//				<h1 class="page-title">Blog Post Title</h1>
-//				<p class="page-subtitle">
-//					    <span>March 25, 2018</span>
-//					<i class="opacity-05">in</i>
-//					<span class="text-links uppercase">
-//						<a href="#">Lifestyle</a>
-//					</span>
-//				</p>
-//			</div>
-//		</section>
-//		<!-- /Hero -->
-//
-//		<!-- Blog Post Section -->
-//		<section class="bg-light pb-6">
-//			<div class="container py-8">
-//				<div class="row">
-//
-//					<!-- Blog Post Column -->
-//					<div class="col-lg-9">
-//
-//						<h4 class="uppercase bold">About</h4>
-//						<hr class="separator-left">
-//						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero officia commodi, aut culpa, consectetur doloribus aperiam neque quaerat tenetur officiis quod assumenda, fuga voluptas rerum asperiores porro molestiae, debitis rem.</p>
-//						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum laboriosam possimus doloremque harum, nam autem quis facilis voluptatibus illo voluptatem, beatae necessitatibus doloribus in, hic veritatis ad rerum minima eligendi.</p>
-//
-//						<div class="thumbnail-video my-7"
-//						     data-src="https://vimeo.com/115041822"
-//						     data-poster="img/gallery/108.jpg"></div>
-//
-//						<blockquote class="mb-7">
-//							<p>Whatever you can do or dream you can, begin it. Boldness has genius, power, and magic in it.</p>
-//							<footer>-Johann Wolfgang von Goethe</footer>
-//						</blockquote>
-//
-//						<h4 class="uppercase bold mb-5">Post Gallery</h4>
-//
-//						<!-- GALLERY GRID -->
-//						<div class="grid lightbox photo-gallery"
-//						     data-columns="2"
-//						     data-gutter="2"
-//						     data-cell-ratio="5/4"
-//						     data-thumbnails="true"
-//						     data-thumbnails-pinned="true">
-//
-//							<a class="grid-item wide lightbox-link"
-//							   href="img/gallery/68.jpg"
-//							   title="Photo Caption"
-//							   data-background="img/gallery/68.jpg"
-//							   data-thumbnail="img/gallery/68.jpg"></a>
-//
-//							<a class="grid-item lightbox-link"
-//							   href="img/gallery/2.jpg"
-//							   title="Photo Caption"
-//							   data-background="img/gallery/2.jpg"
-//							   data-thumbnail="img/gallery/2.jpg"></a>
-//
-//							<a class="grid-item lightbox-link"
-//							   href="img/gallery/3.jpg"
-//							   title="Photo Caption"
-//							   data-background="img/gallery/3.jpg"
-//							   data-thumbnail="img/gallery/3.jpg"></a>
-//
-//							<a class="grid-item lightbox-link"
-//							   href="img/gallery/108.jpg"
-//							   title="Photo Caption"
-//							   data-background="img/gallery/108.jpg"
-//							   data-thumbnail="img/gallery/108.jpg"></a>
-//
-//							<a class="grid-item tall lightbox-link"
-//							   href="img/gallery/85.jpg"
-//							   title="Photo Caption"
-//							   data-background="img/gallery/85.jpg"
-//							   data-thumbnail="img/gallery/85.jpg"></a>
-//
-//							<a class="grid-item lightbox-link"
-//							   href="img/gallery/109.jpg"
-//							   title="Photo Caption"
-//							   data-background="img/gallery/109.jpg"
-//							   data-thumbnail="img/gallery/109.jpg"></a>
-//
-//							<a class="grid-item wide lightbox-link"
-//							   href="img/gallery/107.jpg"
-//							   title="Photo Caption"
-//							   data-background="img/gallery/107.jpg"
-//							   data-thumbnail="img/gallery/107.jpg"></a>
-//
-//						</div>
-//						<!-- /GALLERY GRID -->
-//
-//"""

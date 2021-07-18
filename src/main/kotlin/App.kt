@@ -34,7 +34,7 @@ data class AppState(var lightTheme: Boolean) : RState
 class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
 
     init {
-        state = AppState(window.localStorage.get(STORAGE_LIGHT_THEME)?.toBoolean() ?: false)
+        state = AppState(window.localStorage[STORAGE_LIGHT_THEME]?.toBoolean() ?: false)
     }
 
     override fun RBuilder.render() {

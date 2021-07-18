@@ -23,8 +23,8 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
             props.category
                 ?.title?.lowercase()
                 ?.let { catName ->
-                    blogItems.filter {
-                        it.categories.filter { it.title.lowercase() == catName }.isNotEmpty()
+                    blogItems.filter { item ->
+                        item.categories.filter {cat -> cat.title.lowercase() == catName }.isNotEmpty()
                     }
                 }
                 ?: blogItems
@@ -69,14 +69,14 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
                     setProp("data-gutter", "30")
                     setProp("data-columns", "3")
                 }
-                list.forEachIndexed { i, item ->
-                    renderBlogItem(item, i)
+                list.forEach { item ->
+                    renderBlogItem(item)
                 }
             }
         }
     }
 
-    private fun RBuilder.renderBlogItem(item: data.BlogItem, index: Int) {
+    private fun RBuilder.renderBlogItem(item: data.BlogItem) {
         article {
             val link = item.buildUri()
             a(href = link) {

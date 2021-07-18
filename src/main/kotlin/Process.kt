@@ -42,8 +42,8 @@ class Process(props: ProcessProps) : RComponent<ProcessProps, RState>(props) {
                         h4("bold uppercase") {
                             +"PROTOTYPE"
                         }
-                        p { +("We can test and refine requirements using techniques like paper prototypes, questionaires and online tools with people and customers. "
-                                +"This helps to decide which feature are the most important and help set the priorities for the project.") }
+                        p { +("We can test and refine requirements using techniques like paper prototypes, questionnaires and online tools with people and customers. "
+                                +"This helps to decide which features are the most important - and helps set the priorities for the project.") }
                     }
                     div("col-md-4") {
                         attrs { setProp("data-animation", "fade-in-bottom 1.2s .4s") }
@@ -55,7 +55,7 @@ class Process(props: ProcessProps) : RComponent<ProcessProps, RState>(props) {
                             +"refine"
                         }
                         p { +("We use an integrated agile software process that constantly delivers working software. " +
-                                "By regularly releaasing - we can adapt to changing needs and refine as the project progresses. ") }
+                                "By regularly releasing - we can adapt to changing needs and refine as the project progresses. ") }
                     }
                 }
             }
@@ -70,39 +70,3 @@ fun RBuilder.process(handler: ProcessProps.() -> Unit): ReactElement {
         this.attrs(handler)
     }
 }
-//
-//<!-- Process -->
-//<section class="text-light py-sm-13 py-10 px-7" data-background="#222">
-//<div class="container p-0">
-//
-//<h5 class="mb-8">PROCESS.</h5>
-//
-//<div class="row">
-//
-//<!-- Process Item -->
-//<div class="col-md-4" data-animation="fade-in-bottom 1.2s .2s">
-//<h1 class="bold opacity-02">01.</h1>
-//<h4 class="bold">IDEA <span class="serif">&</span> COFFEE</h4>
-//<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem officiis soluta nihil explicabo possimus. Maxime reiciendis atque soluta.</p>
-//</div>
-//<!-- /Process Item -->
-//
-//<!-- Process Item -->
-//<div class="col-md-4" data-animation="fade-in-bottom 1.2s .4s">
-//<h1 class="bold opacity-02">02.</h1>
-//<h4 class="bold">PROTOTYPE</h4>
-//<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem officiis soluta nihil explicabo possimus. Maxime reiciendis atque soluta.</p>
-//</div>
-//<!-- /Process Item -->
-//
-//<!-- Process Item -->
-//<div class="col-md-4" data-animation="fade-in-bottom 1.2s .6s">
-//<h1 class="bold opacity-02">03.</h1>
-//<h4 class="bold">AWESOMENESS</h4>
-//<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem officiis soluta nihil explicabo possimus. Maxime reiciendis atque soluta.</p>
-//</div>
-//<!-- /Process Item -->
-//
-//</div>
-//</div>
-//</section>
