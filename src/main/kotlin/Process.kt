@@ -20,7 +20,7 @@ class Process(props: ProcessProps) : RComponent<ProcessProps, RState>(props) {
             div("container p-0") {
                 h4("mb-5") { +"PROCESS" }
                 p("mb-5") {
-                    +("In software good process is everything it save time and money and give the best result. " +
+                    +("In software good process is everything - it saves time and money and is integral for the best result. " +
                             "It's important to get all the requirements gathered first and test them with customers using different techniques. " +
                             "We can guide you through the complete process and help and grow maintain your app after release.")
 
