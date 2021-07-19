@@ -38,25 +38,31 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
     }
 
     override fun RBuilder.render() {
-        document.title = state.item.title
-        val description = state.contentHtml?.substring(200) ?: state.item.title
-        document.querySelector("meta[name=\"description\"]")
-            ?.setAttribute("content", description);
+        // title
+        state.item.title.let{ title ->
+            document.title = title
+            document.querySelector("meta[name=\"twitter:title\"]")
+                ?.setAttribute("content", title)
+            document.querySelector("meta[name=\"og:title\"]")
+                ?.setAttribute("content", title)
 
-        document.querySelector("meta[name=\"twitter:title\"]")
-            ?.setAttribute("content", state.item.title)
-        document.querySelector("meta[name=\"twitter:title\"]")
-            ?.setAttribute("property", "og:title")
+        }
+        // description
+        (state.contentHtml?.substring(200) ?: state.item.title).let {desc ->
+            document.querySelector("meta[name=\"description\"]")
+                ?.setAttribute("content", desc);
+            document.querySelector("meta[property=\"og:description\"]")
+                ?.setAttribute("content", desc)
+        }
 
-        document.querySelector("meta[name=\"twitter:image\"]")
-            ?.setAttribute("content", state.item.buildImgUri(true))
-        document.querySelector("meta[name=\"twitter:image\"]")
-            ?.setAttribute("property", "og:image")
-
-        document.querySelector("meta[name=\"twitter:description\"]")
-            ?.setAttribute("content", description)
-        document.querySelector("meta[name=\"twitter:description\"]")
-            ?.setAttribute("property", "og:description")
+        state.item.buildImgUri(true).let{ imgUrl ->
+            document.querySelector("meta[property=\"og:image\"]")
+                ?.setAttribute("content", imgUrl)
+        }
+        state.item.buildUri(true).let{uri ->
+            document.querySelector("meta[property=\"og:url\"]")
+                ?.setAttribute("content", uri)
+        }
 
         div { attrs { id = "preloader" } }
         header {
