@@ -1,7 +1,4 @@
-import data.blogItems
-import data.buildImgUri
-import data.buildUri
-import data.item404
+import data.*
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.MainScope
@@ -48,9 +45,9 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
 
         }
         // description
-        (state.contentHtml?.substring(200) ?: state.item.title).let {desc ->
+        state.item.cleanDescription(state.contentHtml).let {desc ->
             document.querySelector("meta[name=\"description\"]")
-                ?.setAttribute("content", desc);
+                ?.setAttribute("content", desc)
             document.querySelector("meta[property=\"og:description\"]")
                 ?.setAttribute("content", desc)
         }
@@ -211,7 +208,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
 
 }
 
-fun RDOMBuilder<HtmlBlockTag>.renderCategories(categories: List<data.Category>) {
+fun RDOMBuilder<HtmlBlockTag>.renderCategories(categories: List<Category>) {
     categories
         .takeIf { it.isNotEmpty() }
         ?.let { cats ->

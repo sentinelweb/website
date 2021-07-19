@@ -15,8 +15,13 @@ fun BlogItem.unslashedUri() = contentUri.replace("/", "_")
 
 fun BlogItem.buildUri(absolute: Boolean = false) =
     (if (absolute) window.location.origin else "") + "$BLOG_ITEM_PATH_TITLE${unslashedUri()}"
+
 fun BlogItem.buildImgUri(absolute: Boolean = true) =
     (if (absolute) window.location.origin else "") + this.img
+
+fun BlogItem.cleanDescription(content: String?) =
+    content?.replace("(<([^>]+)>)".toRegex(), "")
+        ?: title
 
 data class Category(
     val title: String
