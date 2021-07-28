@@ -82,6 +82,12 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
                             changeTheme = { updateTheme() }
                         }
                     }
+                    route<RProps>("/*") {
+                        blogItem {
+                            index = -1
+                            changeTheme = { updateTheme() }
+                        }
+                    }
                 }
             }
         }
