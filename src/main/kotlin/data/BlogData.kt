@@ -75,6 +75,6 @@ val blogItems = listOf<BlogItem>(
 ).reversed()
 
 val item404 = BlogItem(
-    "img/gallery/404-girl-1208283_1280.jpg", "Not found", "-", listOf(),
+    "img/gallery/404-space-travel-5815766_1280.jpg", "Not found", "-", listOf(),
     "blog/404-not-found.html"
 )
