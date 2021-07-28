@@ -20,12 +20,15 @@ class Clients(props: ClientsProps) : RComponent<ClientsProps, RState>(props) {
                     client("img/portfolio/trainline-logo.png")
                     client("img/portfolio/depop-logo.png")
                     client("img/portfolio/waracle-logo.png")
-                    client("img/portfolio/jlc-logo.svg")
                 }
                 div("row clients") {
+                    client("img/portfolio/jlc-logo.svg")
                     client("img/portfolio/pwc-logo.jpg")
                     client("img/portfolio/deloitte-logo.png")
+                }
+                div("row clients") {
                     client("img/portfolio/mgm-logo.svg")
+                    client("img/portfolio/roche-logo.jpg")
                     client("img/portfolio/capita-logo.png")
                 }
             }
@@ -34,7 +37,7 @@ class Clients(props: ClientsProps) : RComponent<ClientsProps, RState>(props) {
     }
 
     private fun RDOMBuilder<DIV>.client(url: String) {
-        span("col-6 col-md-4 col-lg py-4") {
+        span("col-6 col-md-3 col-lg py-4") {
             img(src = url, classes = "clients-item") {}
         }
     }

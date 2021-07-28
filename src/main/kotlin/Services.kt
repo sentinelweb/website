@@ -27,7 +27,7 @@ class Services(props: ServicesProps) : RComponent<ServicesProps, RState>(props) 
                         service {
                             title = "Development"
                             text =
-                                ("We use cross-platform technology (Kotlin Multi-platform) and this can help you bring you app to more platforms in a shorter time. "
+                                ("We use cross-platform technology (Kotlin Multi-platform) and this can help you bring your app to more platforms in a shorter time. "
                                         + "We can build for Mobile, Web and desktop and use the backend that is best for you.")
                         }
                         hr("separator-left my-6") {}

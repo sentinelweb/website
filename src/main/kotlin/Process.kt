@@ -22,7 +22,7 @@ class Process(props: ProcessProps) : RComponent<ProcessProps, RState>(props) {
                 p("mb-5") {
                     +("In software good process is everything - it saves time and money and is integral for the best result. " +
                             "It's important to get all the requirements gathered first and test them with customers using different techniques. " +
-                            "We can guide you through the complete process and help and grow maintain your app after release.")
+                            "We can guide you through the complete process and help and grow and maintain your app after release.")
 
                 }
                 div("row") {
