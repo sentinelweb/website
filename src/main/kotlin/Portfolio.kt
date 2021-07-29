@@ -61,10 +61,21 @@ class Portfolio(props: PortfolioProps) : RComponent<PortfolioProps, RState>(prop
                         title = "Waracle"
                         wide = true
                         backgroundUrl = "img/portfolio/waracle-logo.png"
-                        description = ""
+                        description = "Build of Floodlight App for end-client Roche"
                         links = listOf(
                             "Website" to "https://waracle.com/industries/digital-health/",
                             "Article" to "https://www.syneoshealthcommunications.com/blog/roches-floodlight-a-multiple-sclerosis-game-changer"
+                        )
+                    }
+
+                    portfolioItem {
+                        categories = "mobile external"
+                        title = "Roche"
+                        wide = true
+                        backgroundUrl = "img/portfolio/roche-logo.jpg"
+                        description = "A data gathering app for MS sufferers"
+                        links = listOf(
+                            "App" to "https://play.google.com/store/apps/details?id=com.rochedhs.floodlight.us"
                         )
                     }
 

@@ -67,7 +67,7 @@
 
 .blog-share-ctnr {
     position:fixed;
-    top:200px;
+    top:150px;
     float:right;
     display:block;
     background:#0006;
@@ -85,8 +85,6 @@
 }
 
 .blog-share-ctnr:hover * {
-    display:block;
-    margin:8px;
     filter: grayscale(0);
     transition: filter .5s;
 }

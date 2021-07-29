@@ -1,0 +1,43 @@
+
+.content-item h1,.content-item h2,.content-item h3,.content-item h4,.content-item h5,.content-item h6 {
+    margin-top:40px;
+    margin-bottom:20px;
+}
+
+.content-item p {
+    font-size:18px;
+    line-height:180%;
+    margin-top:20px;
+    margin-bottom:20px;
+    color:black;
+}
+
+.content-item ul {
+    margin-left:40px;
+}
+
+.content-item a {
+    word-wrap:break-word;
+}
+
+
+.content-item a:link {
+    color: rgb(42,69,124);
+    text-decoration:underline;
+}
+
+.content-item a:visited {
+    color: rgb(67,107,191);
+}
+
+.content-item a:hover {
+
+}
+
+.content-item a:hover:after {
+	font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,Arial,sans-serif;
+	content: "\2197";
+	color: rgb(164, 184, 224);
+	margin-left: .2em;
+	text-size:6px;
+}

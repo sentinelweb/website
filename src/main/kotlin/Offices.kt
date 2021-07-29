@@ -2,11 +2,11 @@ import kotlinx.html.id
 import react.*
 import react.dom.*
 
-external interface OficesProps : RProps {
+external interface OfficesProps : RProps {
     var x: Boolean
 }
 
-class Ofices(props: OficesProps) : RComponent<OficesProps, RState>(props) {
+class Offices(props: OfficesProps) : RComponent<OfficesProps, RState>(props) {
 
     override fun RBuilder.render() {
         section {
@@ -51,8 +51,8 @@ class Ofices(props: OficesProps) : RComponent<OficesProps, RState>(props) {
 }
 
 
-fun RBuilder.offices(handler: OficesProps.() -> Unit): ReactElement {
-    return child(Ofices::class) {
+fun RBuilder.offices(handler: OfficesProps.() -> Unit): ReactElement {
+    return child(Offices::class) {
         this.attrs(handler)
     }
 }
