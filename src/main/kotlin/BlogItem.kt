@@ -192,7 +192,7 @@ class BlogItem(props: BlogItemProps) : RComponent<BlogItemProps, BlogItemState>(
 
     private fun fetch(item: data.BlogItem) {
         MainScope().launch {
-            val rx = fetchContent(item.contentUri)
+            val rx = doFetch(item.contentUri)
             setState {
                 contentHtml = rx
             }
@@ -226,12 +226,4 @@ fun RBuilder.blogItem(handler: BlogItemProps.() -> Unit): ReactElement {
     return child(BlogItem::class) {
         this.attrs(handler)
     }
-}
-
-suspend fun fetchContent(relative: String): String = coroutineScope {
-    window
-        .fetch(relative)
-        .await()
-        .text()
-        .await()
 }

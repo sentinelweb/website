@@ -40,26 +40,12 @@ class Blog(props: BlogProps) : RComponent<BlogProps, BlogState>(props) {
         }
         main {
             attrs { id = "main" }
-            renderHero()
+            //https://pixabay.com/photos/satellite-image-city-new-york-1030778/
+            renderHero((state.category?.title ?: "Blog & News"), "img/gallery/satellite-image-1030778_1280.jpg", ".3")
             renderBlogList(state.displayList)
             contact {}
         }
         footer {}
-    }
-
-    private fun RBuilder.renderHero() {
-        section("flex-center background-parallax bg-dark py-14") {
-            attrs {
-                //https://pixabay.com/photos/satellite-image-city-new-york-1030778/
-                setProp("data-background", "img/gallery/satellite-image-1030778_1280.jpg")
-                setProp("data-overlay", "black; .3")
-            }
-            div("page-title-wrapper text-light") {
-                h1("page-title") {
-                    +(state.category?.title ?: "Blog & News")
-                }
-            }
-        }
     }
 
     private fun RBuilder.renderBlogList(list: List<data.BlogItem>) {

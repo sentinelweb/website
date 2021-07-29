@@ -19,6 +19,7 @@ class Footer(props: FooterProps) : RComponent<FooterProps, RState>(props) {
             }
             small { +"© Copyright Sentinel Web Technologies Ltd, 2021" }
             div("small text-links") {
+                a(href = "/privacy.html") { +"Privacy" }
                 a(href = "https://github.com/sentinelweb", target = "_blank") { +"Github" }
                 a(href = "https://twitter.com/sentinelwebtech", target = "_blank") { +"Twitter" }
                 a(href = "https://play.google.com/store/apps/developer?id=Sentinel+Web+Technologies", target = "_blank") { +"Google play" }

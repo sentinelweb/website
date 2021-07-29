@@ -19,6 +19,7 @@ const val BLOG_CAT = "cat"
 const val BLOG_PATH_CAT = "/blog.html?$BLOG_CAT="
 const val BLOG_ITEM_PATH = "/blog_item.html"
 const val ERROR_404_PATH = "/404.html"
+const val PRIVACY_PATH = "/privacy.html"
 
 const val BLOG_ITEM_TITLE = "title"
 
@@ -75,6 +76,11 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
                                 }
                             }
                             ?: run { blog { changeTheme = { updateTheme() } } }
+                    }
+                    route<RProps>(PRIVACY_PATH) {
+                        privacy {
+                            changeTheme = { updateTheme() }
+                        }
                     }
                     route<RProps>(ERROR_404_PATH) {
                         blogItem {
