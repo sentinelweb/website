@@ -1,81 +1,10 @@
-// ./gradlew run --continuous
-val ver_kotlin: String by project
-val ver_kotlin_react: String by project
-val ver_kotlin_styled: String by project
-val ver_kotlin_react_router: String by project
-val ver_coroutines_core: String by project
-val ver_npm_highlight: String by project
-val ver_npm_react_share: String by project
-
 plugins {
-    id("org.jetbrains.kotlin.js") version "1.5.10"
-}
-
-group = "uk.co.sentinelweb"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-val outputJsLibName = "sentinel_website.js"
-
-dependencies {
-    implementation(kotlin("stdlib-js"))
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$ver_kotlin_react")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$ver_kotlin_react")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:$ver_kotlin_styled")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:$ver_kotlin_react_router")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$ver_coroutines_core")
-
-    implementation(npm("highlight.js", ver_npm_highlight))
-    implementation(npm("react-share", ver_npm_react_share))
-
-//    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-}
-
-kotlin {
-    js {
-        useCommonJs()
-        browser {
-            binaries.executable()
-            commonWebpackConfig {
-                cssSupport.enabled = true
-                outputFileName = outputJsLibName
-            }
-
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                    webpackConfig.cssSupport.enabled = true
-                }
-            }
-            runTask {
-                devServer = devServer?.copy(port = 3030)
-            }
-        }
-    }
-}
-
-kotlin {
-    js {
-        nodejs {
-        }
-        binaries.executable()
-    }
-}
-
-tasks {
-    val processResources by getting(Copy::class) {
-        doLast {
-            listOf("js/packages/website/kotlin-dce/secrets.json", "js/packages/website/kotlin-dce-dev/secrets.json")
-                .map { buildDir.resolve(it) }
-                .map {
-                    it.writeText(
-                        """{"SWEBSITE_MAPS_API_KEY" : "${project.properties["SWEBSITE_MAPS_API_KEY"]}" }"""
-                    )
-                }
-        }
-    }
+    // this is necessary to avoid the plugins to be loaded multiple times
+    // in each subproject's classloader
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.jetbrainsCompose) apply false
+    alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.kotlinSerialization) apply false
 }
