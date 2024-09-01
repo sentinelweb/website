@@ -27,12 +27,12 @@ import kotlin.math.roundToInt
 @Preview
 fun App(sizeProvider: ScreenSizeProvider) {
     MaterialTheme {
-        SplashScreen1(sizeProvider)
+        SplashScreen(sizeProvider)
     }
 }
 
 @Composable
-fun SplashScreen1(sizeProvider: ScreenSizeProvider) {
+fun SplashScreen(sizeProvider: ScreenSizeProvider) {
     val fullSize = IntSize(sizeProvider.width.toInt(), sizeProvider.height.toInt())
     val imgSize = IntSize(1460, 320)
     val initialScale = 1f
