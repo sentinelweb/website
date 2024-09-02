@@ -1,6 +1,6 @@
 package uk.co.sentinelweb.site.util
 
-expect class ScreenSizeProvider {
+expect class WindowSizeProvider {
     val width: Float
     val height: Float
 }

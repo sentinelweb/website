@@ -20,19 +20,19 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import sentinelwebsite.composeapp.generated.resources.Res
 import sentinelwebsite.composeapp.generated.resources.logo_light
-import uk.co.sentinelweb.site.util.ScreenSizeProvider
+import uk.co.sentinelweb.site.util.WindowSizeProvider
 import kotlin.math.roundToInt
 
 @Composable
 @Preview
-fun App(sizeProvider: ScreenSizeProvider) {
+fun App(sizeProvider: WindowSizeProvider) {
     MaterialTheme {
         SplashScreen(sizeProvider)
     }
 }
 
 @Composable
-fun SplashScreen(sizeProvider: ScreenSizeProvider) {
+fun SplashScreen(sizeProvider: WindowSizeProvider) {
     val fullSize = IntSize(sizeProvider.width.toInt(), sizeProvider.height.toInt())
     val imgSize = IntSize(1460, 320)
     val initialScale = 1f

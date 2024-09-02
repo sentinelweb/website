@@ -12,7 +12,7 @@ external object window : JsAny {
     var innerHeight: Int
 }
 
-actual class ScreenSizeProvider {
+actual class WindowSizeProvider {
     actual val width: Float
         get() = window.innerWidth.toFloat()
 
