@@ -12,7 +12,7 @@ plugins {
 }
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
         browser {
@@ -24,6 +24,7 @@ kotlin {
                         // Serve sources to debug inside browser
                         add(projectDirPath)
                     }
+                    port = 8084
                 }
             }
         }
